@@ -1,0 +1,8 @@
+﻿@page "/"
+@namespace BlazorSchool.Components.Server.Demonstrate.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+}
+
+<component type="typeof(App)" render-mode="ServerPrerendered" />
