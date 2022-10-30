@@ -1,14 +1,33 @@
 ﻿@page "/"
-@using BlazorSchool.Components.Web;
+@using BlazorSchool.Components.Server.Demonstrate.Data
+@using BlazorSchool.Components.Web.UI;
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<style>
+    .grabbable
+    {
+        cursor: move;
+    }
+</style>
 
-Welcome to your new app.
+@if (DisplayWindow)
+{
+    <BlazorWindow class="border border-3 border-primary">
+        <BlazorWindowTitle class="grabbable d-flex flex-row">
+            <div class="bg-success text-white">Window title</div>
+            <BlazorWindowCloseAction OnCloseClick="() => DisplayWindow=false">
+                Close
+            </BlazorWindowCloseAction>
+        </BlazorWindowTitle>
+        <BlazorWindowContent>Window content</BlazorWindowContent>
+    </BlazorWindow>
+}
+else
+{
+    <button type="button" @onclick="() => DisplayWindow = true">Open BlazorWindow</button>
+}
 
-<SurveyPrompt Title="How is Blazor working for you?" />
-<BlazorWindow>
-    <BlazorWindowTitle>test</BlazorWindowTitle>
-    <BlazorWindowContent>test2</BlazorWindowContent>
-</BlazorWindow>
+@code {
+    public bool DisplayWindow { get; set; } = true;
+}

@@ -1,0 +1,8 @@
+[
+  {
+    "outputFileName": "wwwroot/BlazorWindow.min.js",
+    "inputFiles": [
+      "UI/BlazorWindow/BlazorWindow.js"
+    ]
+  }
+]
