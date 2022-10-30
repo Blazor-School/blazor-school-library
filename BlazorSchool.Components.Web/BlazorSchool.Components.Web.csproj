@@ -4,6 +4,15 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Title>$(AssemblyName)</Title>
+    <Version>1.0.0-preview</Version>
+    <Description>A Blazor Components Library for Blazor Server and Blazor WebAssembly.</Description>
+    <Copyright>Blazor School</Copyright>
+    <Company>Blazor Lead</Company>
+    <Authors>Blazor School</Authors>
+    <PackageProjectUrl>https://blazorschool.com</PackageProjectUrl>
+    <IncludeSymbols>False</IncludeSymbols>
   </PropertyGroup>
 
 
