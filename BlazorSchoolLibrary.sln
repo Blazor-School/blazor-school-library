@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorSchool.Components.Web", "BlazorSchool.Components.Web\BlazorSchool.Components.Web.csproj", "{3EA44759-B63A-4E70-BB23-177D07E0E1FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSchool.Components.Web", "BlazorSchool.Components.Web\BlazorSchool.Components.Web.csproj", "{3EA44759-B63A-4E70-BB23-177D07E0E1FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorSchool.Components.Server.Demonstrate", "BlazorSchool.Components.Server.Demonstrate\BlazorSchool.Components.Server.Demonstrate.csproj", "{C3C2BA74-D7EC-4F3A-8212-17BBDC75BACF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSchool.Components.Server.Demonstrate", "BlazorSchool.Components.Server.Demonstrate\BlazorSchool.Components.Server.Demonstrate.csproj", "{C3C2BA74-D7EC-4F3A-8212-17BBDC75BACF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorSchool.Components.WebAssembly.Demonstrate", "BlazorSchool.Components.WebAssembly.Demonstrate\BlazorSchool.Components.WebAssembly.Demonstrate.csproj", "{194A9492-330A-47DF-8560-E67200C6807B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{C3C2BA74-D7EC-4F3A-8212-17BBDC75BACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3C2BA74-D7EC-4F3A-8212-17BBDC75BACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3C2BA74-D7EC-4F3A-8212-17BBDC75BACF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{194A9492-330A-47DF-8560-E67200C6807B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{194A9492-330A-47DF-8560-E67200C6807B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{194A9492-330A-47DF-8560-E67200C6807B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{194A9492-330A-47DF-8560-E67200C6807B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

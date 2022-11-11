@@ -1,13 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
     <Version>1.0.0-preview</Version>
-    <Description>A Blazor Components Library for Blazor Server and Blazor WebAssembly.</Description>
+    <Description>A Blazor Component Library for Blazor Server and Blazor WebAssembly.</Description>
     <Copyright>Blazor School</Copyright>
     <Company>Blazor Lead</Company>
     <Authors>Blazor School</Authors>
@@ -16,7 +16,7 @@
     <PackageIcon>logo.png</PackageIcon>
     <PackageTags>blazor blazor-server blazor-wasm</PackageTags>
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
-    <AssemblyVersion>1.0.0-preview</AssemblyVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
     <PackageLicenseFile>LICENSE.MD</PackageLicenseFile>
   </PropertyGroup>
 
@@ -26,15 +26,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Properties\LICENSE.MD">
+    <None Include="Properties\LICENSE.MD">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Update="Properties\logo.png">
+    <None Include="Properties\logo.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
