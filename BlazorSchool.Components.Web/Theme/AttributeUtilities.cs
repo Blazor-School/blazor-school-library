@@ -19,7 +19,7 @@ internal static class AttributeUtilities
 
     public static void ThrowsIfContains(IReadOnlyDictionary<string, object>? additionalAttributes, params string[] attributeList)
     {
-        if (additionalAttributes is not null && attributeList.Any(a => additionalAttributes.ContainsKey(a)))
+        if (additionalAttributes is not null && attributeList.Any(additionalAttributes.ContainsKey))
         {
             throw new InvalidOperationException($"Do not specify the following attributes {string.Join(", ", attributeList)}.");
         }

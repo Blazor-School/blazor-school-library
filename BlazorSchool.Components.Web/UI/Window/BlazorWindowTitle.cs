@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
 
-namespace BlazorSchool.Components.Web.UI;
+namespace BlazorSchool.Components.Web.UI.Window;
 public class BlazorWindowTitle : ComponentBase
 {
     [CascadingParameter]
@@ -29,7 +29,7 @@ public class BlazorWindowTitle : ComponentBase
         if (firstRender)
         {
             await CascadedBlazorWindow.LoadModules();
-            await CascadedBlazorWindow.BlazorWindowModule.Value.InvokeVoidAsync("registerWindowTitleEvent",_windowId, CascadedBlazorWindow.WindowId);
+            await CascadedBlazorWindow.BlazorWindowModule.Value.InvokeVoidAsync("registerWindowTitleEvent", _windowId, CascadedBlazorWindow.WindowId);
         }
     }
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace BlazorSchool.Components.Web.UI;
+namespace BlazorSchool.Components.Web.UI.Window;
 public class BlazorWindowContent : ComponentBase
 {
     [CascadingParameter]
@@ -18,8 +18,5 @@ public class BlazorWindowContent : ComponentBase
         }
     }
 
-    protected override void BuildRenderTree(RenderTreeBuilder builder)
-    {
-        builder.AddContent(0, ChildContent);
-    }
+    protected override void BuildRenderTree(RenderTreeBuilder builder) => builder.AddContent(0, ChildContent);
 }
