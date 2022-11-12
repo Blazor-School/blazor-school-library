@@ -64,7 +64,7 @@ public class BlazorWindow : ComponentBase, IAsyncDisposable
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenElement(0, "div");
+        builder.OpenElement(0, "blazor-window");
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttribute(1, "style", "position: absolute;");
         builder.AddAttribute(2, "id", WindowId);

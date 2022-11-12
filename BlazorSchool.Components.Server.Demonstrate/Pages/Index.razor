@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using BlazorSchool.Components.Server.Demonstrate.Data
 @using BlazorSchool.Components.Web.UI.Window
+@using BlazorSchool.Components.Web.UI.CaptureElement
 
 <PageTitle>Index</PageTitle>
 
@@ -10,6 +11,8 @@
         cursor: move;
     }
 </style>
+
+<BlazorCaptureElement></BlazorCaptureElement>
 
 @if (DisplayWindow)
 {
