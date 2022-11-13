@@ -4,19 +4,19 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
-    <Version>1.0.0-preview</Version>
+    <Version>1.0.1-preview</Version>
     <Description>A Blazor Component Library for Blazor Server and Blazor WebAssembly.</Description>
     <Copyright>Blazor School</Copyright>
-    <Company>Blazor Lead</Company>
+    <Company>Blazor School</Company>
     <Authors>Blazor School</Authors>
     <PackageProjectUrl>https://blazorschool.com</PackageProjectUrl>
     <IncludeSymbols>False</IncludeSymbols>
     <PackageIcon>logo.png</PackageIcon>
     <PackageTags>blazor blazor-server blazor-wasm</PackageTags>
-    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <PackageReleaseNotes>Add a new component BlazorCaptureElement.</PackageReleaseNotes>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
     <PackageLicenseFile>LICENSE.MD</PackageLicenseFile>
   </PropertyGroup>
 
