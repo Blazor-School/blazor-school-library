@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using BlazorSchool.Components.Web.UI.CaptureElement
 
 <PageTitle>Index</PageTitle>
 
@@ -6,4 +7,7 @@
 
 Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<BlazorCaptureElement>
+    <div class="border border-3 border-primary">Test</div>
+    <BlazorCapturePdfButton class="btn btn-primary">Blazor School Capture</BlazorCapturePdfButton>
+</BlazorCaptureElement>

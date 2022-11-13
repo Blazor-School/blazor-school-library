@@ -19,12 +19,11 @@ export function capturePdf(token, blazorButtonInstance)
         return;
     }
 
-    printWindow.document.write('<html><head><title>Save to PDF</title>');
+    printWindow.document.write('<html><head><title></title>');
     printWindow.document.write('</head><body>');
     Array.from(childElements).forEach(element => printWindow.document.write(element.outerHTML));
     printWindow.document.write('</body></html>');
     printWindow.document.close();
     printWindow.focus();
     printWindow.print();
-    printWindow.close();
 }
