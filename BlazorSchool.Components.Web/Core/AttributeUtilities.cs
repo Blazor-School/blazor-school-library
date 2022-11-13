@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace BlazorSchool.Components.Web.Theme;
+namespace BlazorSchool.Components.Web.Core;
 internal static class AttributeUtilities
 {
     public static string? CombineClassNames(IReadOnlyDictionary<string, object>? additionalAttributes, string? classNames)

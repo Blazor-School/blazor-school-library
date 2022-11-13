@@ -1,4 +1,4 @@
-﻿using BlazorSchool.Components.Web.Theme;
+﻿using BlazorSchool.Components.Web.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;

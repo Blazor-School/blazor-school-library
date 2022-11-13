@@ -1,8 +1,23 @@
 [
-  {
-    "outputFileName": "wwwroot/BlazorWindow.min.js",
-    "inputFiles": [
-      "UI/BlazorWindow/BlazorWindow.js"
-    ]
-  }
+    {
+        "outputFileName": "wwwroot/BlazorWindow.min.js",
+        "inputFiles":
+        [
+            "UI/Window/BlazorWindow.js"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/BlazorTokenize.min.js",
+        "inputFiles":
+        [
+            "Core/Tokenize/BlazorTokenize.js"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/BlazorCaptureElement.min.js",
+        "inputFiles":
+        [
+            "UI/CaptureElement/BlazorCaptureElement.js"
+        ]
+    }
 ]

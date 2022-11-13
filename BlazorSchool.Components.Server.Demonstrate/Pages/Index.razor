@@ -11,8 +11,16 @@
         cursor: move;
     }
 </style>
+@MyProperty
+<BlazorCaptureElement Token='asdfsadfsd'>
+    <div class="border border-3 border-primary">Test</div>
+</BlazorCaptureElement>
+<BlazorCapturePdfButton class="btn btn-primary" CapturingToken='asdfsadfsd' OnPopupBlocked="Test" OnClicked="Test">Blazor School Capture</BlazorCapturePdfButton>
 
-<BlazorCaptureElement></BlazorCaptureElement>
+<BlazorCaptureElement>
+    <div class="border border-3 border-primary">Test</div>
+    <BlazorCapturePdfButton class="btn btn-primary" OnPopupBlocked="Test">Blazor School Capture</BlazorCapturePdfButton>
+</BlazorCaptureElement>
 
 @if (DisplayWindow)
 {
@@ -32,5 +40,12 @@ else
 }
 
 @code {
+    public string MyProperty { get; set; } = "";
+
+    public void Test()
+    {
+        MyProperty = "Popup blocked";
+    }
+
     public bool DisplayWindow { get; set; } = true;
 }
