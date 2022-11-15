@@ -27,7 +27,7 @@
     <BlazorWindow class="border border-3 border-primary">
         <BlazorWindowTitle class="grabbable d-flex flex-row">
             <div class="bg-success text-white">Window title</div>
-            <BlazorWindowCloseAction OnCloseClick="() => DisplayWindow=false">
+            <BlazorWindowCloseAction OnCloseClick="() => DisplayWindow=!DisplayWindow">
                 Close
             </BlazorWindowCloseAction>
         </BlazorWindowTitle>
