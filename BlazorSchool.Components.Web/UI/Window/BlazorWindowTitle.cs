@@ -29,7 +29,7 @@ public class BlazorWindowTitle : ComponentBase
         if (firstRender)
         {
             await CascadedBlazorWindow.LoadModules();
-            await CascadedBlazorWindow.BlazorWindowModule.Value.InvokeVoidAsync("registerWindowTitleEvent", _windowId, CascadedBlazorWindow.WindowId);
+            await CascadedBlazorWindow.BlazorWindowModule.Value.InvokeVoidAsync("registerWindowTitleEvent", _windowId, CascadedBlazorWindow.Token);
         }
     }
 

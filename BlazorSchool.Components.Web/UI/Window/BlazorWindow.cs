@@ -1,10 +1,11 @@
 ﻿using BlazorSchool.Components.Web.Core;
+using BlazorSchool.Components.Web.Core.Tokenize;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
 
 namespace BlazorSchool.Components.Web.UI.Window;
-public class BlazorWindow : ComponentBase, IAsyncDisposable
+public class BlazorWindow : TokenizeComponent, IAsyncDisposable
 {
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -14,8 +15,6 @@ public class BlazorWindow : ComponentBase, IAsyncDisposable
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
-
-    public string WindowId { get; init; } = Guid.NewGuid().ToString();
 
     public Lazy<IJSObjectReference> BlazorWindowModule = new();
     private string _cssClass = "";
@@ -67,7 +66,7 @@ public class BlazorWindow : ComponentBase, IAsyncDisposable
         builder.OpenElement(0, "blazor-window");
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttribute(1, "style", "position: absolute;");
-        builder.AddAttribute(2, "id", WindowId);
+        builder.AddAttribute(2, "id", Token);
         builder.OpenComponent<CascadingValue<BlazorWindow>>(3);
         builder.AddAttribute(4, "IsFixed", true);
         builder.AddAttribute(5, "Value", this);
@@ -80,7 +79,9 @@ public class BlazorWindow : ComponentBase, IAsyncDisposable
     {
         if (BlazorWindowModule.IsValueCreated)
         {
-            await BlazorWindowModule.Value.DisposeAsync();
+            await BlazorWindowModule.Value.DisposeAsync().ConfigureAwait(false);
+            GC.SuppressFinalize(this);
+
         }
     }
 }
