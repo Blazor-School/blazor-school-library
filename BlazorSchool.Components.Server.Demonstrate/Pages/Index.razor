@@ -2,6 +2,7 @@
 @using BlazorSchool.Components.Server.Demonstrate.Data
 @using BlazorSchool.Components.Web.UI.Window
 @using BlazorSchool.Components.Web.UI.CaptureElement
+@using BlazorSchool.Components.Web.UI.Button
 
 <PageTitle>Index</PageTitle>
 
@@ -22,9 +23,8 @@
     <BlazorCapturePdfButton class="btn btn-primary" OnPopupBlocked="Test">Blazor School Capture</BlazorCapturePdfButton>
 </BlazorCaptureElement>
 
-@if (DisplayWindow)
-{
     <BlazorWindow class="border border-3 border-primary">
+        
         <BlazorWindowTitle class="grabbable d-flex flex-row">
             <div class="bg-success text-white">Window title</div>
             <BlazorWindowCloseAction OnCloseClick="() => DisplayWindow=!DisplayWindow">
@@ -33,11 +33,7 @@
         </BlazorWindowTitle>
         <BlazorWindowContent>Window content</BlazorWindowContent>
     </BlazorWindow>
-}
-else
-{
-    <button type="button" @onclick="() => DisplayWindow = true">Open BlazorWindow</button>
-}
+<ButtonComponent OnOpenClick="() => DisplayWindow=!DisplayWindow">Open Blazor Window</ButtonComponent>
 
 @code {
     public string MyProperty { get; set; } = "";

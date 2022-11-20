@@ -1,7 +1,7 @@
 ﻿using BlazorSchool.Components.Web.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-
+using BlazorSchool.Components.Web.UI.Button;
 namespace BlazorSchool.Components.Web.UI.Window;
 public class BlazorWindowCloseAction : ComponentBase
 {
@@ -10,6 +10,9 @@ public class BlazorWindowCloseAction : ComponentBase
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public bool IsWindowOpen { get; set; }
 
     [EditorRequired]
     [Parameter]
@@ -20,6 +23,7 @@ public class BlazorWindowCloseAction : ComponentBase
 
     protected override void OnParametersSet()
     {
+        
         if (CascadedBlazorWindow is null)
         {
             throw new InvalidOperationException($"{nameof(BlazorWindowTitle)} requires a {nameof(BlazorWindow)} component.");
@@ -30,10 +34,11 @@ public class BlazorWindowCloseAction : ComponentBase
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenElement(0, "button");
-        builder.AddMultipleAttributes(1, AdditionalAttributes);
-        builder.AddAttribute(2, "onclick", OnCloseClick);
-        builder.AddContent(3, ChildContent);
-        builder.CloseElement();
+
+            builder.OpenElement(0, "button");
+            builder.AddMultipleAttributes(1, AdditionalAttributes);
+            builder.AddAttribute(2, "onclick", OnCloseClick);
+            builder.AddContent(3, ChildContent);
+            builder.CloseElement();
     }
 }

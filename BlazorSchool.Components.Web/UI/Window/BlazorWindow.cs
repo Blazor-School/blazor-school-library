@@ -2,6 +2,7 @@
 using BlazorSchool.Components.Web.Core.Tokenize;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using BlazorSchool.Components.Web.UI.Button;
 using Microsoft.JSInterop;
 
 namespace BlazorSchool.Components.Web.UI.Window;
@@ -9,6 +10,12 @@ public class BlazorWindow : TokenizeComponent, IAsyncDisposable
 {
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    [CascadingParameter]
+    public bool IsWindowOpen { get; set; } = true;
+
+    [Parameter]
+    public EventCallback OpenMe { get; set; }
 
     [Inject]
     private IJSRuntime _jsRuntime { get; set; } = default!;
@@ -63,16 +70,27 @@ public class BlazorWindow : TokenizeComponent, IAsyncDisposable
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenElement(0, "blazor-window");
-        builder.AddMultipleAttributes(1, AdditionalAttributes);
-        builder.AddAttribute(1, "style", "position: absolute;");
-        builder.AddAttribute(2, "id", Token);
-        builder.OpenComponent<CascadingValue<BlazorWindow>>(3);
-        builder.AddAttribute(4, "IsFixed", true);
-        builder.AddAttribute(5, "Value", this);
-        builder.AddAttribute(6, "ChildContent", ChildContent);
-        builder.CloseComponent();
-        builder.CloseElement();
+
+        if (IsWindowOpen)
+        {
+            builder.OpenElement(0, "blazor-window");
+            builder.AddMultipleAttributes(1, AdditionalAttributes);
+            builder.AddAttribute(2, "style", "position: absolute;");
+            builder.AddAttribute(3, "id", Token);
+            builder.OpenComponent<CascadingValue<BlazorWindow>>(4);
+            builder.AddAttribute(4, "IsFixed", true);
+            builder.AddAttribute(5, "Value", this);
+            builder.AddAttribute(6, "ChildContent", ChildContent);
+            builder.CloseComponent();
+            builder.CloseElement();
+        }
+        else
+        {
+            builder.OpenElement(0, "button");
+            builder.AddMultipleAttributes(1, AdditionalAttributes);
+            builder.AddAttribute(2, "onclick", OpenMe);
+            builder.CloseElement();
+        }
     }
 
     public async ValueTask DisposeAsync()
