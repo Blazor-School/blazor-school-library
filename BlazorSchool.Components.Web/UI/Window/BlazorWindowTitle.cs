@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
-
+using BlazorSchool.Components.Web.UI.Button;
 namespace BlazorSchool.Components.Web.UI.Window;
 public class BlazorWindowTitle : ComponentBase
 {
