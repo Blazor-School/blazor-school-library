@@ -8,21 +8,31 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BlazorSchool.Components.Web.UI.Button;
+
+public class ButtonComponent : ComponentBase
 {
     [Parameter]
-
+    public bool IsButtonVisible { get; set; } = false;
     [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
     [Parameter]
-    
-protected override void BuildRenderTree(RenderTreeBuilder builder)
+    public EventCallback OnButtonClick { get; set; }
+
+    protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
+        if (IsButtonVisible)
         {
-            builder.OpenElement(0, "button");
-            builder.CloseElement();
+            {
+                builder.OpenElement(0, "button");
+                builder.AddMultipleAttributes(1, AdditionalAttributes);
+                builder.AddAttribute(2, "onclick", OnButtonClick);
+                builder.AddContent(3, ChildContent);
+                builder.CloseElement();
+            }
         }
     }
 }
