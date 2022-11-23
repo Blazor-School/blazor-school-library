@@ -32,7 +32,7 @@ public class BlazorWindowCloseAction : ComponentBase
     {
         builder.OpenElement(0, "button");
         builder.AddMultipleAttributes(1, AdditionalAttributes);
-        builder.AddAttribute(2, "onclick",OnCloseClick);
+        builder.AddAttribute(2, "onclick", OnCloseClick);
         builder.AddContent(3, ChildContent);
         builder.CloseElement();
     }

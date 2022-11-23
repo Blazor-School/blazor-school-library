@@ -11,7 +11,7 @@ public class BlazorWindow : TokenizeComponent, IAsyncDisposable
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
-    public bool IsWindowVisible { get; set; }=true;
+    public bool IsWindowVisible { get; set; } = true;
 
     [Inject]
     private IJSRuntime _jsRuntime { get; set; } = default!;
@@ -71,7 +71,7 @@ public class BlazorWindow : TokenizeComponent, IAsyncDisposable
             builder.OpenElement(0, "blazor-window");
             builder.AddMultipleAttributes(1, AdditionalAttributes);
             builder.AddAttribute(1, "style", "position: absolute;");
-            builder.AddAttribute(2, "id", Token);
+            builder.AddAttribute(2, TokenAttributeKey, Token);
             builder.OpenComponent<CascadingValue<BlazorWindow>>(3);
             builder.AddAttribute(4, "IsFixed", true);
             builder.AddAttribute(5, "Value", this);
