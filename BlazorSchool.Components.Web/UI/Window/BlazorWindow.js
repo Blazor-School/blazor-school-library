@@ -1,29 +1,31 @@
-﻿let handleDragOverReference = null;
+﻿import { getTokenizedElement } from "/_content/BlazorSchool.Components.Web/BlazorTokenize.min.js"
 
-function handleDragOver(e, domId)
+let handleDragOverReference = null;
+
+function handleDragOver(mouseEvent, windowToken)
 {
-    e = e || window.event;
-    let element = document.getElementById(domId);
+    mouseEvent = mouseEvent || window.event;
+    let element = getTokenizedElement(windowToken);
     let rect = element.getBoundingClientRect();
     let maxLeft = window.innerWidth - rect.width;
     let maxTop = window.innerHeight - rect.height;
 
-    if (e.pageX < maxLeft)
+    if (mouseEvent.pageX < maxLeft)
     {
-        element.style.left = `${e.pageX}px`;
+        element.style.left = `${mouseEvent.pageX}px`;
     }
 
-    if (e.pageY < maxTop)
+    if (mouseEvent.pageY < maxTop)
     {
-        element.style.top = `${e.pageY}px`;
+        element.style.top = `${mouseEvent.pageY}px`;
     }
 
-    e.preventDefault();
+    mouseEvent.preventDefault();
 }
 
-function registerDocumentMouseMoveEvent(windowId)
+function registerDocumentMouseMoveEvent(windowToken)
 {
-    handleDragOverReference = (e) => handleDragOver(e, windowId);
+    handleDragOverReference = (mouseEvent) => handleDragOver(mouseEvent, windowToken);
     document.addEventListener("dragover", handleDragOverReference, false);
 }
 
@@ -32,15 +34,15 @@ function unregisterDocumentMouseMoveEvent()
     document.removeEventListener("dragover", handleDragOverReference, false);
 }
 
-export function registerWindowTitleEvent(windowTitleId, windowId)
+export function registerWindowTitleEvent(windowTitleToken, windowToken)
 {
-    let element = document.getElementById(windowTitleId);
+    let element = getTokenizedElement(windowTitleToken);
 
     let handleDragStartReference = (e) =>
     {
         e.dataTransfer.effectAllowed = "move";
         e.dataTransfer.setDragImage(new Image(), 0, 0);
-        registerDocumentMouseMoveEvent(windowId);
+        registerDocumentMouseMoveEvent(windowToken);
     };
 
     element.addEventListener("dragstart", handleDragStartReference, false);
