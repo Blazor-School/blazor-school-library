@@ -85,9 +85,8 @@ public class BlazorWindow : TokenizeComponent, IAsyncDisposable
     {
         if (BlazorWindowModule.IsValueCreated)
         {
-            await BlazorWindowModule.Value.DisposeAsync().ConfigureAwait(false);
+            await BlazorWindowModule.Value.DisposeAsync();
             GC.SuppressFinalize(this);
-
         }
     }
 }
