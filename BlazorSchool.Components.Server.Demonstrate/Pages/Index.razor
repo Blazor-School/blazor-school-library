@@ -2,43 +2,38 @@
 @using BlazorSchool.Components.Server.Demonstrate.Data
 @using BlazorSchool.Components.Web.UI.Window
 @using BlazorSchool.Components.Web.UI.CaptureElement
-
 <PageTitle>Index</PageTitle>
 
 <style>
-    .grabbable
-    {
+    .grabbable {
         cursor: move;
     }
 </style>
 @MyProperty
-<BlazorCaptureElement Token='asdfsadfsd'>
+<BlazorCaptureElement Token='test-token'>
     <div class="border border-3 border-primary">Test</div>
 </BlazorCaptureElement>
-<BlazorCapturePdfButton class="btn btn-primary" CapturingToken='asdfsadfsd' OnPopupBlocked="Test" OnClicked="Test">Blazor School Capture</BlazorCapturePdfButton>
+<BlazorCapturePdfButton class="btn btn-primary" CapturingToken='test-token' OnPopupBlocked="Test" OnClicked="Test">Blazor School Capture</BlazorCapturePdfButton>
 
 <BlazorCaptureElement>
     <div class="border border-3 border-primary">Test</div>
     <BlazorCapturePdfButton class="btn btn-primary" OnPopupBlocked="Test">Blazor School Capture</BlazorCapturePdfButton>
 </BlazorCaptureElement>
 
-@if (DisplayWindow)
-{
-    <BlazorWindow class="border border-3 border-primary">
-        <BlazorWindowTitle class="grabbable d-flex flex-row">
-            <div class="bg-success text-white">Window title</div>
-            <BlazorWindowCloseAction OnCloseClick="() => DisplayWindow=false">
-                Close
-            </BlazorWindowCloseAction>
-        </BlazorWindowTitle>
-        <BlazorWindowContent>Window content</BlazorWindowContent>
-    </BlazorWindow>
-}
-else
+<BlazorWindow IsWindowVisible=@DisplayWindow class="border border-3 border-primary">
+    <BlazorWindowTitle class="grabbable d-flex flex-row">
+        <div class="bg-primary text-white">Drag me</div>
+        <BlazorWindowCloseAction class="btn btn-danger" OnCloseClick="() => DisplayWindow=!DisplayWindow">
+            Close
+        </BlazorWindowCloseAction>
+    </BlazorWindowTitle>
+    <BlazorWindowContent>Window content</BlazorWindowContent>
+</BlazorWindow>
+
+@if (!DisplayWindow)
 {
     <button type="button" @onclick="() => DisplayWindow = true">Open BlazorWindow</button>
 }
-
 @code {
     public string MyProperty { get; set; } = "";
 

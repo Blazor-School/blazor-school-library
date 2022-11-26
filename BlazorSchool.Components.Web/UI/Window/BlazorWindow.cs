@@ -1,21 +1,23 @@
 ﻿using BlazorSchool.Components.Web.Core;
+using BlazorSchool.Components.Web.Core.Tokenize;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
 
 namespace BlazorSchool.Components.Web.UI.Window;
-public class BlazorWindow : ComponentBase, IAsyncDisposable
+public class BlazorWindow : TokenizeComponent, IAsyncDisposable
 {
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public bool IsWindowVisible { get; set; } = true;
 
     [Inject]
     private IJSRuntime _jsRuntime { get; set; } = default!;
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
-
-    public string WindowId { get; init; } = Guid.NewGuid().ToString();
 
     public Lazy<IJSObjectReference> BlazorWindowModule = new();
     private string _cssClass = "";
@@ -64,16 +66,19 @@ public class BlazorWindow : ComponentBase, IAsyncDisposable
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenElement(0, "blazor-window");
-        builder.AddMultipleAttributes(1, AdditionalAttributes);
-        builder.AddAttribute(1, "style", "position: absolute;");
-        builder.AddAttribute(2, "id", WindowId);
-        builder.OpenComponent<CascadingValue<BlazorWindow>>(3);
-        builder.AddAttribute(4, "IsFixed", true);
-        builder.AddAttribute(5, "Value", this);
-        builder.AddAttribute(6, "ChildContent", ChildContent);
-        builder.CloseComponent();
-        builder.CloseElement();
+        if (IsWindowVisible)
+        {
+            builder.OpenElement(0, "blazor-window");
+            builder.AddMultipleAttributes(1, AdditionalAttributes);
+            builder.AddAttribute(1, "style", "position: absolute;");
+            builder.AddAttribute(2, TokenAttributeKey, Token);
+            builder.OpenComponent<CascadingValue<BlazorWindow>>(3);
+            builder.AddAttribute(4, "IsFixed", true);
+            builder.AddAttribute(5, "Value", this);
+            builder.AddAttribute(6, "ChildContent", ChildContent);
+            builder.CloseComponent();
+            builder.CloseElement();
+        }
     }
 
     public async ValueTask DisposeAsync()
@@ -81,6 +86,7 @@ public class BlazorWindow : ComponentBase, IAsyncDisposable
         if (BlazorWindowModule.IsValueCreated)
         {
             await BlazorWindowModule.Value.DisposeAsync();
+            GC.SuppressFinalize(this);
         }
     }
 }

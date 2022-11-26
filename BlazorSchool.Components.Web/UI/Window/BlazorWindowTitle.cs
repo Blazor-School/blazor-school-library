@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using BlazorSchool.Components.Web.Core.Tokenize;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
 
 namespace BlazorSchool.Components.Web.UI.Window;
-public class BlazorWindowTitle : ComponentBase
+public class BlazorWindowTitle : TokenizeComponent
 {
     [CascadingParameter]
     private BlazorWindow? CascadedBlazorWindow { get; set; }
@@ -13,8 +14,6 @@ public class BlazorWindowTitle : ComponentBase
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
-    private string _windowId { get; init; } = Guid.NewGuid().ToString();
 
     protected override void OnParametersSet()
     {
@@ -26,10 +25,15 @@ public class BlazorWindowTitle : ComponentBase
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        if (CascadedBlazorWindow is null)
+        {
+            return;
+        }
+
         if (firstRender)
         {
             await CascadedBlazorWindow.LoadModules();
-            await CascadedBlazorWindow.BlazorWindowModule.Value.InvokeVoidAsync("registerWindowTitleEvent", _windowId, CascadedBlazorWindow.WindowId);
+            await CascadedBlazorWindow.BlazorWindowModule.Value.InvokeVoidAsync("registerWindowTitleEvent", Token, CascadedBlazorWindow.Token);
         }
     }
 
@@ -37,7 +41,7 @@ public class BlazorWindowTitle : ComponentBase
     {
         builder.OpenElement(0, "div");
         builder.AddMultipleAttributes(1, AdditionalAttributes);
-        builder.AddAttribute(2, "id", _windowId);
+        builder.AddAttribute(2, TokenAttributeKey, Token);
         builder.AddAttribute(3, "draggable", "true");
         builder.AddContent(4, ChildContent);
         builder.CloseElement();
