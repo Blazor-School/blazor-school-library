@@ -25,6 +25,11 @@ public class BlazorWindowTitle : TokenizeComponent
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        if (CascadedBlazorWindow is null)
+        {
+            return;
+        }
+
         if (firstRender)
         {
             await CascadedBlazorWindow.LoadModules();
