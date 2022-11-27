@@ -46,4 +46,6 @@ public class BlazorWindowTitle : TokenizeComponent
         builder.AddContent(4, ChildContent);
         builder.CloseElement();
     }
+
+    public override void Dispose() => UnregisterTokenize();
 }

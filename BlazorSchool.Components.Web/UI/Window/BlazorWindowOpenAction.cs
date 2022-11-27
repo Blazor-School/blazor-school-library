@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
 namespace BlazorSchool.Components.Web.UI.Window;
-public class BlazorWindowCloseAction : ComponentBase
+public class BlazorWindowOpenAction : ComponentBase
 {
     [CascadingParameter]
     private BlazorWindow? CascadedBlazorWindow { get; set; }
@@ -47,12 +47,12 @@ public class BlazorWindowCloseAction : ComponentBase
     {
         if (CascadedBlazorWindow is not null)
         {
-            CascadedBlazorWindow?.CloseWindow();
+            CascadedBlazorWindow?.OpenWindow();
         }
         else
         {
             var windowComponent = TokenizeResolver.Resolve<BlazorWindow>(TargetToken);
-            windowComponent.CloseWindow();
+            windowComponent.OpenWindow();
         }
 
         await (OnClick?.InvokeAsync() ?? Task.CompletedTask);
