@@ -31,6 +31,11 @@ public class BlazorWindowCloseAction : ComponentBase
             throw new InvalidOperationException($"{nameof(BlazorWindowTitle)} requires a {nameof(BlazorWindow)} component or a {nameof(TargetToken)}.");
         }
 
+        if (CascadedBlazorWindow is not null && !string.IsNullOrEmpty(TargetToken))
+        {
+            throw new InvalidOperationException($"Use {nameof(BlazorWindow)} component or a {nameof(TargetToken)}. Do not use both.");
+        }
+
         AttributeUtilities.ThrowsIfContains(AdditionalAttributes, "onclick");
     }
 
