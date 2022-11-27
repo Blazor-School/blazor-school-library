@@ -38,12 +38,12 @@ public class BlazorWindowOpenAction : ComponentBase
     {
         builder.OpenElement(0, "button");
         builder.AddMultipleAttributes(1, AdditionalAttributes);
-        builder.AddAttribute(2, "onclick", CloseClicked);
+        builder.AddAttribute(2, "onclick", Clicked);
         builder.AddContent(3, ChildContent);
         builder.CloseElement();
     }
 
-    private async Task CloseClicked()
+    private async Task Clicked()
     {
         if (CascadedBlazorWindow is not null)
         {
