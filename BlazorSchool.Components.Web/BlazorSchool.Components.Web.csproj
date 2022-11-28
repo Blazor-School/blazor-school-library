@@ -26,10 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <None Include="D:\Projects\BlazorSchoolLibrary\BlazorSchool.Components.Web\.editorconfig" />
     <None Include="Properties\LICENSE.MD">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -42,6 +39,14 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\Projects\BlazorSchoolLibrary\BlazorSchool.Components.Web\.editorconfig" />
   </ItemGroup>
 
 </Project>

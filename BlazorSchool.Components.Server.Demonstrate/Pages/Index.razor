@@ -5,7 +5,8 @@
 <PageTitle>Index</PageTitle>
 
 <style>
-    .grabbable {
+    .grabbable
+    {
         cursor: move;
     }
 </style>
@@ -20,20 +21,15 @@
     <BlazorCapturePdfButton class="btn btn-primary" OnPopupBlocked="Test">Blazor School Capture</BlazorCapturePdfButton>
 </BlazorCaptureElement>
 
-<BlazorWindow IsWindowVisible=@DisplayWindow class="border border-3 border-primary">
+<BlazorWindow InitialVisibility="false" class="border border-3 border-primary" Token="test-token2">
     <BlazorWindowTitle class="grabbable d-flex flex-row">
         <div class="bg-primary text-white">Drag me</div>
-        <BlazorWindowCloseAction class="btn btn-danger" OnCloseClick="() => DisplayWindow=!DisplayWindow">
-            Close
-        </BlazorWindowCloseAction>
+        <BlazorWindowCloseAction class="btn btn-danger">Close</BlazorWindowCloseAction>
     </BlazorWindowTitle>
     <BlazorWindowContent>Window content</BlazorWindowContent>
 </BlazorWindow>
+<BlazorWindowOpenAction class="btn btn-success" TargetToken="test-token2">Open</BlazorWindowOpenAction>
 
-@if (!DisplayWindow)
-{
-    <button type="button" @onclick="() => DisplayWindow = true">Open BlazorWindow</button>
-}
 @code {
     public string MyProperty { get; set; } = "";
 

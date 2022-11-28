@@ -1,17 +1,16 @@
-﻿using BlazorSchool.Components.Web.Core;
-using BlazorSchool.Components.Web.Core.Tokenize;
+﻿using BlazorSchool.Components.Web.Core.Tokenize;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
 
 namespace BlazorSchool.Components.Web.UI.Window;
-public class BlazorWindow : TokenizeComponent, IAsyncDisposable
+public class BlazorWindow : TokenizeComponent
 {
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
-    public bool IsWindowVisible { get; set; } = true;
+    public bool? InitialVisibility { get; set; }
 
     [Inject]
     private IJSRuntime _jsRuntime { get; set; } = default!;
@@ -20,7 +19,14 @@ public class BlazorWindow : TokenizeComponent, IAsyncDisposable
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
     public Lazy<IJSObjectReference> BlazorWindowModule = new();
+    private bool _visibilityState = true;
     private string _cssClass = "";
+
+    protected override void OnInitialized()
+    {
+        _visibilityState = InitialVisibility ?? true;
+        RegisterTokenize();
+    }
 
     protected override void OnParametersSet()
     {
@@ -39,8 +45,6 @@ public class BlazorWindow : TokenizeComponent, IAsyncDisposable
                 throw new InvalidOperationException("Do not specify position for this component.");
             }
         }
-
-        AttributeUtilities.ThrowsIfContains(AdditionalAttributes, "id");
 
         if (AdditionalAttributes is not null && AdditionalAttributes.TryGetValue("class", out object? cssClass))
         {
@@ -66,7 +70,7 @@ public class BlazorWindow : TokenizeComponent, IAsyncDisposable
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        if (IsWindowVisible)
+        if (_visibilityState)
         {
             builder.OpenElement(0, "blazor-window");
             builder.AddMultipleAttributes(1, AdditionalAttributes);
@@ -81,12 +85,24 @@ public class BlazorWindow : TokenizeComponent, IAsyncDisposable
         }
     }
 
-    public async ValueTask DisposeAsync()
+    public void CloseWindow()
     {
+        _visibilityState = false;
+        StateHasChanged();
+    }
+
+    public void OpenWindow()
+    {
+        _visibilityState = true;
+        StateHasChanged();
+    }
+
+    public override void Dispose()
+    {
+        UnregisterTokenize();
         if (BlazorWindowModule.IsValueCreated)
         {
-            await BlazorWindowModule.Value.DisposeAsync();
-            GC.SuppressFinalize(this);
+            _ = InvokeAsync(async () => await BlazorWindowModule.Value.DisposeAsync());
         }
     }
 }

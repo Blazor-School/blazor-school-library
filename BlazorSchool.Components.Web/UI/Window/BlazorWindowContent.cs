@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+
 namespace BlazorSchool.Components.Web.UI.Window;
 public class BlazorWindowContent : ComponentBase
 {
