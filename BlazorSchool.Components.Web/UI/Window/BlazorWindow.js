@@ -1,50 +1,41 @@
 ﻿import { getTokenizedElement } from "/_content/BlazorSchool.Components.Web/BlazorTokenize.min.js"
 
-let handleDragOverReference = null;
+let previousClientX = 0, previousClientY = 0;
+let windowToken;
 
-function handleDragOver(mouseEvent, windowToken)
+export function registerWindowTitleEvent(inputTitleToken, inputWindowToken)
 {
-    mouseEvent = mouseEvent || window.event;
+    let element = getTokenizedElement(inputTitleToken);
+    windowTitleToken = inputTitleToken;
+    windowToken = inputWindowToken;
+    element.onmousedown = dragMouseDown;
+}
+
+function dragMouseDown(e)
+{
+    e = e || window.event;
+    e.preventDefault();
+    previousClientX = e.clientX;
+    previousClientY = e.clientY;
+    document.onmouseup = unregisterDragEvent;
+    document.onmousemove = handleElementDrag;
+}
+
+function handleElementDrag(e)
+{
+    e = e || window.event;
+    e.preventDefault();
+    let diffClientX = previousClientX - e.clientX;
+    let diffClientY = previousClientY - e.clientY;
+    previousClientX = e.clientX;
+    previousClientY = e.clientY;
     let element = getTokenizedElement(windowToken);
-    let rect = element.getBoundingClientRect();
-    let maxLeft = window.innerWidth - rect.width;
-    let maxTop = window.innerHeight - rect.height;
-
-    if (mouseEvent.pageX < maxLeft)
-    {
-        element.style.left = `${mouseEvent.pageX}px`;
-    }
-
-    if (mouseEvent.pageY < maxTop)
-    {
-        element.style.top = `${mouseEvent.pageY}px`;
-    }
-
-    mouseEvent.preventDefault();
+    element.style.left = (element.offsetLeft - diffClientX) + "px";
+    element.style.top = (element.offsetTop - diffClientY) + "px";
 }
 
-function registerDocumentMouseMoveEvent(windowToken)
+function unregisterDragEvent()
 {
-    handleDragOverReference = (mouseEvent) => handleDragOver(mouseEvent, windowToken);
-    document.addEventListener("dragover", handleDragOverReference, false);
-}
-
-function unregisterDocumentMouseMoveEvent()
-{
-    document.removeEventListener("dragover", handleDragOverReference, false);
-}
-
-export function registerWindowTitleEvent(windowTitleToken, windowToken)
-{
-    let element = getTokenizedElement(windowTitleToken);
-
-    let handleDragStartReference = (e) =>
-    {
-        e.dataTransfer.effectAllowed = "move";
-        e.dataTransfer.setDragImage(new Image(), 0, 0);
-        registerDocumentMouseMoveEvent(windowToken);
-    };
-
-    element.addEventListener("dragstart", handleDragStartReference, false);
-    element.addEventListener("dragend", unregisterDocumentMouseMoveEvent, false);
+    document.onmouseup = null;
+    document.onmousemove = null;
 }
