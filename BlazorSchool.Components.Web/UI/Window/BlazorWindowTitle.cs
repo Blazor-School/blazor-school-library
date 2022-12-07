@@ -42,8 +42,7 @@ public class BlazorWindowTitle : TokenizeComponent
         builder.OpenElement(0, "div");
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttribute(2, TokenAttributeKey, Token);
-        builder.AddAttribute(3, "draggable", "true");
-        builder.AddContent(4, ChildContent);
+        builder.AddContent(3, ChildContent);
         builder.CloseElement();
     }
 }
