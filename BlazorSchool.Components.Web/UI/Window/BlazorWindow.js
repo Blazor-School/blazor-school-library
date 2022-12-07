@@ -30,8 +30,8 @@ function handleElementDrag(e)
     previousClientX = e.clientX;
     previousClientY = e.clientY;
     let element = getTokenizedElement(windowToken);
-    element.style.left = (element.offsetLeft - diffClientX) + "px";
-    element.style.top = (element.offsetTop - diffClientY) + "px";
+    element.style.left = `${element.offsetLeft - diffClientX}px`;
+    element.style.top = `${element.offsetTop - diffClientY}px`;
 }
 
 function unregisterDragEvent()
