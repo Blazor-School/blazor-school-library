@@ -6,18 +6,19 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
-    <Version>1.0.1-preview</Version>
+    <Version>1.0.0</Version>
     <Description>A Blazor Component Library for Blazor Server and Blazor WebAssembly.</Description>
     <Copyright>Blazor School</Copyright>
     <Company>Blazor School</Company>
     <Authors>Blazor School</Authors>
-    <PackageProjectUrl>https://blazorschool.com</PackageProjectUrl>
+    <PackageProjectUrl>https://blazorlibrary.com</PackageProjectUrl>
     <IncludeSymbols>False</IncludeSymbols>
-    <PackageIcon>logo.png</PackageIcon>
+    <PackageIcon>Properties\logo.png</PackageIcon>
     <PackageTags>blazor blazor-server blazor-wasm</PackageTags>
-    <PackageReleaseNotes>Add a new component BlazorCaptureElement.</PackageReleaseNotes>
-    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <PackageReleaseNotes>Official release.</PackageReleaseNotes>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
     <PackageLicenseFile>LICENSE.MD</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/Blazor-School/blazor-school-library</RepositoryUrl>
   </PropertyGroup>
 
 
@@ -28,10 +29,6 @@
   <ItemGroup>
     <None Include="D:\Projects\BlazorSchoolLibrary\BlazorSchool.Components.Web\.editorconfig" />
     <None Include="Properties\LICENSE.MD">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="Properties\logo.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
@@ -47,6 +44,13 @@
 
   <ItemGroup>
     <EditorConfigFiles Remove="D:\Projects\BlazorSchoolLibrary\BlazorSchool.Components.Web\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
