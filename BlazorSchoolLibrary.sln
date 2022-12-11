@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSchool.Components.Ser
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSchool.Components.WebAssembly.Demonstrate", "BlazorSchool.Components.WebAssembly.Demonstrate\BlazorSchool.Components.WebAssembly.Demonstrate.csproj", "{194A9492-330A-47DF-8560-E67200C6807B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorSchool.Components.Web.Tests", "BlazorSchool.Components.Web.Tests\BlazorSchool.Components.Web.Tests.csproj", "{2BC5BC17-82E6-4053-9717-5118D000B97A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSchool.Components.Web.Tests", "BlazorSchool.Components.Web.Tests\BlazorSchool.Components.Web.Tests.csproj", "{2BC5BC17-82E6-4053-9717-5118D000B97A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -19,7 +19,7 @@ public class BlazorCapturePdfButton : ComponentBase
     public EventCallback OnPopupBlocked { get; set; } = EventCallback.Empty;
 
     [Parameter]
-    public EventCallback OnClicked { get; set; } = EventCallback.Empty;
+    public EventCallback OnClick { get; set; } = EventCallback.Empty;
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
@@ -54,7 +54,7 @@ public class BlazorCapturePdfButton : ComponentBase
 
     private async Task CapturePdfAsync()
     {
-        await OnClicked.InvokeAsync();
+        await OnClick.InvokeAsync();
         if (BlazorCaptureElementModule.IsValueCreated)
         {
             string? token = CapturingToken;

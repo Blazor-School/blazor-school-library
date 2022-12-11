@@ -1,40 +1,4 @@
 ﻿@page "/"
-@using BlazorSchool.Components.Web.UI.CaptureElement
-@using BlazorSchool.Components.Web.UI.Window
-
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-@MyProperty
-<BlazorCaptureElement Token='test-token'>
-    <div class="border border-3 border-primary">Test</div>
-</BlazorCaptureElement>
-<BlazorCapturePdfButton class="btn btn-primary" CapturingToken='test-token' OnPopupBlocked="Test" OnClicked="Test">Blazor School Capture</BlazorCapturePdfButton>
-
-<BlazorCaptureElement>
-    <div class="border border-3 border-primary">Test</div>
-    <BlazorCapturePdfButton class="btn btn-primary" OnPopupBlocked="Test">Blazor School Capture</BlazorCapturePdfButton>
-</BlazorCaptureElement>
-
-<BlazorWindow InitialVisibility="false" class="border border-3 border-primary" Token="test-token2">
-    <BlazorWindowTitle class="grabbable d-flex flex-row">
-        <div class="bg-primary text-white">Drag me</div>
-        <BlazorWindowCloseAction class="btn btn-danger">Close</BlazorWindowCloseAction>
-    </BlazorWindowTitle>
-    <BlazorWindowContent>Window content</BlazorWindowContent>
-</BlazorWindow>
-<BlazorWindowOpenAction class="btn btn-success" TargetToken="test-token2">Open</BlazorWindowOpenAction>
-
-@code {
-    public string MyProperty { get; set; } = "";
-
-    public void Test()
-    {
-        MyProperty = "Popup blocked";
-    }
-
-    public bool DisplayWindow { get; set; } = true;
-}
+<div>Select a component from the menu</div>

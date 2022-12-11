@@ -1,0 +1,25 @@
+﻿@page "/blazor-capture-element-demonstrate"
+@using BlazorSchool.Components.Web.UI.CaptureElement
+
+<div>The button is outside the main component.</div>
+<BlazorCaptureElement Token="capture-element-token">
+    <div class="border border-3 border-primary">Test</div>
+</BlazorCaptureElement>
+<BlazorCapturePdfButton class="btn btn-primary" CapturingToken="capture-element-token" OnPopupBlocked="MyMethod" OnClick="MyMethod">Blazor School Capture</BlazorCapturePdfButton>
+
+@MyProperty
+<div>The button is inside the main component.</div>
+<BlazorCaptureElement>
+    <div class="border border-3 border-primary">Test</div>
+    <BlazorCapturePdfButton class="btn btn-primary" OnPopupBlocked="MyMethod">Blazor School Capture</BlazorCapturePdfButton>
+</BlazorCaptureElement>
+
+
+@code {
+    public string MyProperty { get; set; } = "";
+
+    public void MyMethod()
+    {
+        MyProperty = "Popup blocked";
+    }
+}
