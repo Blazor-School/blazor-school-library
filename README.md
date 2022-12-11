@@ -21,4 +21,4 @@ Call the method `AddBlazorComponent()` in your `Program.cs` and you are ready to
 * [Blazor School Discord Community](https://discord.com/invite/HsTu2Emqsd).
 
 ## New to Blazor?
-Learn the Blazor fundamentals at [Blazor School](https://blazorschool.com).
+Learn the Blazor at [Blazor School](https://blazorschool.com).
