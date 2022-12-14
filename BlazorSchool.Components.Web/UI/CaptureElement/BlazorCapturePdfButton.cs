@@ -7,7 +7,7 @@ namespace BlazorSchool.Components.Web.UI.CaptureElement;
 public class BlazorCapturePdfButton : ComponentBase
 {
     [Parameter]
-    public string? CapturingToken { get; set; }
+    public string? TargetToken { get; set; }
 
     [CascadingParameter]
     private BlazorCaptureElement? CascadedBlazorCaptureElement { get; set; }
@@ -57,7 +57,7 @@ public class BlazorCapturePdfButton : ComponentBase
         await OnClick.InvokeAsync();
         if (BlazorCaptureElementModule.IsValueCreated)
         {
-            string? token = CapturingToken;
+            string? token = TargetToken;
 
             if (CascadedBlazorCaptureElement is not null)
             {

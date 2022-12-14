@@ -12,14 +12,10 @@ public class BlazorCaptureElement : TokenizeComponent
     [Parameter(CaptureUnmatchedValues = true)]
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
-    protected override void OnParametersSet()
-    {
-        AttributeUtilities.ThrowsIfContains(AdditionalAttributes, TokenAttributeKey);
-    }
+    protected override void OnParametersSet() => AttributeUtilities.ThrowsIfContains(AdditionalAttributes, TokenAttributeKey);
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        //rework blazor-window with different approach than using id attribute
         builder.OpenElement(0, "blazor-capture");
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttribute(2, TokenAttributeKey, Token);
