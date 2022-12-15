@@ -1,0 +1,49 @@
+{
+    "Name": "Custom Theme",
+    "Author": "Blazor Library Desmonstrate",
+    "Themes":
+    [
+        {
+            "Name": "Theme 1",
+            "Imports":
+            [
+                {
+                    "href": "/css/DemonstrateTheme1.css",
+                    "rel": "stylesheet"
+                }
+            ],
+            "Components":
+            {
+                "my-element": "demonstrate-theme1"
+            }
+        },
+        {
+            "Name": "Theme 2",
+            "Imports":
+            [
+                {
+                    "href": "/css/DemonstrateTheme2.css",
+                    "rel": "stylesheet"
+                }
+            ],
+            "Components":
+            {
+                "my-element": "demonstrate-theme2"
+            }
+        },
+        {
+            "Name": "light",
+            "Imports":
+            [
+                {
+                    "href": "/css/DemonstrateTheme2.css",
+                    "rel": "stylesheet"
+                }
+            ],
+            "Components":
+            {
+                "my-element": "demonstrate-theme2"
+            }
+        }
+    ]
+}

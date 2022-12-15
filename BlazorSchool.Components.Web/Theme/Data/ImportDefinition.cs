@@ -5,7 +5,7 @@ internal class ImportDefinition
 {
     public string Href { get; set; } = "";
     public string Rel { get; set; } = "";
-    public Dictionary<string, string> AdditionalAttributes { get; set; } = new();
+    public Dictionary<string, object> AdditionalAttributes { get; set; } = new();
 
     internal static ImportDefinition FromJson(JsonElement jsonElement)
     {
@@ -23,7 +23,7 @@ internal class ImportDefinition
             throw new InvalidOperationException($"The theme config must have a {nameof(Rel).ToLower()} property");
         }
 
-        var otherAttributes = jsonElement.Deserialize<Dictionary<string, string>>() ?? new();
+        var otherAttributes = jsonElement.Deserialize<Dictionary<string, object>>() ?? new();
         _ = otherAttributes.Remove("href");
         _ = otherAttributes.Remove("rel");
 

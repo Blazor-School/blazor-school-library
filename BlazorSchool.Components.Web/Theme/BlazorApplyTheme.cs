@@ -1,7 +1,9 @@
 ﻿using BlazorSchool.Components.Web.Core.Tokenize;
 using BlazorSchool.Components.Web.Theme.Data;
+using BlazorSchool.Components.Web.UI.Window;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace BlazorSchool.Components.Web.Theme;
 public class BlazorApplyTheme : TokenizeComponent
@@ -27,7 +29,7 @@ public class BlazorApplyTheme : TokenizeComponent
     internal ThemePack CurrentThemePack { get; set; } = new();
     internal ThemeDefinition CurrentTheme { get; set; } = new();
     internal ThemePack ThemePackBase { get; set; } = new();
-    internal ThemePack ExtendedThemeConfig { get; set; } = new();
+    internal ThemePack ExtendedThemePack { get; set; } = new();
 
     // Use SetParametersAsync to keep high performance
     public override async Task SetParametersAsync(ParameterView parameters)
@@ -68,7 +70,7 @@ public class BlazorApplyTheme : TokenizeComponent
                     {
                         ExtendedConfigPath = newExtendedConfigPath;
                         string extendedThemeConfig = await httpClient.GetStringAsync(ExtendedConfigPath) ?? throw new InvalidOperationException($"Could not get the theme JSON at {ExtendedConfigPath}.");
-                        ExtendedThemeConfig = ThemePack.FromJson(extendedThemeConfig);
+                        ExtendedThemePack = ThemePack.FromJson(extendedThemeConfig);
                         MergeTheme();
                     }
 
@@ -107,27 +109,44 @@ public class BlazorApplyTheme : TokenizeComponent
         builder.OpenComponent<CascadingValue<BlazorApplyTheme>>(0);
         builder.AddAttribute(1, "IsFixed", true);
         builder.AddAttribute(2, "Value", this);
-        builder.AddAttribute(3, "ChildContent", ChildContent?.Invoke(CurrentTheme.Components));
+        RenderFragment childContentDelegate = RenderChildContent;
+        builder.AddAttribute(3, "ChildContent", childContentDelegate);
+        builder.CloseComponent();
+    }
+
+    private void RenderChildContent(RenderTreeBuilder builder)
+    {
+        builder.AddContent(0, ChildContent?.Invoke(CurrentTheme.Components));
+        builder.OpenComponent<ImportThemeFiles>(1);
+        builder.AddAttribute(2, nameof(ImportThemeFiles.Imports), CurrentTheme.Imports);
         builder.CloseComponent();
     }
 
     private void MergeTheme()
     {
         CurrentThemePack = ThemePack.FromThemeConfig(ThemePackBase);
+        CurrentThemePack.Name = string.Join(" ", ThemePackBase.Name, ExtendedThemePack.Name);
+        CurrentThemePack.Author = string.Join(" ", ThemePackBase.Author, ExtendedThemePack.Author);
 
-        CurrentThemePack.Author = string.Join(" ", ThemePackBase.Author, ExtendedThemeConfig.Author);
+        foreach (var theme in ExtendedThemePack.Themes)
+        {
+            var updatingTheme = CurrentThemePack.Themes.FirstOrDefault(t => t.Name == theme.Name);
 
-        // improve this in the future, more strictly when merging theme, no duplication imports
-        var baseThemeNames = ThemePackBase.Themes.Select(t => t.Name).ToList();
-        var addingThemes = ExtendedThemeConfig.Themes.Where(t => !baseThemeNames.Any(name => t.Name == name)).ToList();
-        var updatingThemes = ExtendedThemeConfig.Themes.Where(t => baseThemeNames.Any(name => t.Name == name)).ToList();
-        ThemePackBase.Themes.AddRange(addingThemes);
+            if (updatingTheme is null)
+            {
+                CurrentThemePack.Themes.Add(theme);
+            }
+            else
+            {
+                // We don't care about import duplication. For now
+                updatingTheme.Imports.AddRange(theme.Imports);
 
-        //foreach (var theme in updatingThemes)
-        //{
-        //    var baseTheme = ThemeConfigBase.Themes.First(t => t.Name == theme.Name);
-        //    baseTheme.Imports.AddRange(theme.Imports);
-        //}
+                foreach (var component in theme.Components)
+                {
+                    updatingTheme.Components[component.Key] = component.Value;
+                }
+            }
+        }
     }
 
     internal void ChangeTheme(string name, bool withRender)

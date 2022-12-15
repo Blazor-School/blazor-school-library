@@ -1,8 +1,8 @@
 ﻿@page "/blazor-apply-theme-demonstrate"
 @using BlazorSchool.Components.Web.Theme;
 
-<BlazorApplyTheme ThemeConfigPath="@DefaultTheme.Bootstrap" InitialTheme="dark" Context="ApplyTheme">
-    <button class="@ApplyTheme["test"]">Test</button>
+<BlazorApplyTheme ThemeConfigPath="@DefaultTheme.Bootstrap" InitialTheme="dark" ExtendedConfigPath="theme-packs/MyTheme.json" Context="ApplyTheme">
+    <button class="@ApplyTheme["my-element"]">My button</button>
     <BlazorThemeSwitcher Context="ThemeSwitcher">
         @foreach(string themeName in ThemeSwitcher.Themes)
         {
