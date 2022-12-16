@@ -12,6 +12,8 @@ public class BlazorCaptureElement : TokenizeComponent, IThemable
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    [CascadingParameter]
     public BlazorApplyTheme? CascadedBlazorApplyTheme { get; set; }
 
     protected override void OnParametersSet() => AttributeUtilities.ThrowsIfContains(AdditionalAttributes, TokenAttributeKey);

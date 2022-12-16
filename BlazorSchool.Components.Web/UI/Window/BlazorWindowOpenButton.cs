@@ -1,10 +1,11 @@
 ﻿using BlazorSchool.Components.Web.Core;
 using BlazorSchool.Components.Web.Core.Tokenize;
+using BlazorSchool.Components.Web.Theme;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
 namespace BlazorSchool.Components.Web.UI.Window;
-public class BlazorWindowCloseAction : ComponentBase
+public class BlazorWindowOpenButton : ComponentBase, IThemable
 {
     [CascadingParameter]
     private BlazorWindow? CascadedBlazorWindow { get; set; }
@@ -21,6 +22,9 @@ public class BlazorWindowCloseAction : ComponentBase
     [Parameter(CaptureUnmatchedValues = true)]
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
+    [CascadingParameter]
+    public BlazorApplyTheme? CascadedBlazorApplyTheme { get; set; }
+
     [Inject]
     private TokenizeResolver TokenizeResolver { get; set; } = default!;
 
@@ -31,18 +35,13 @@ public class BlazorWindowCloseAction : ComponentBase
             throw new InvalidOperationException($"{nameof(BlazorWindowTitle)} requires a {nameof(BlazorWindow)} component or a {nameof(TargetToken)}.");
         }
 
-        if (CascadedBlazorWindow is not null && !string.IsNullOrEmpty(TargetToken))
-        {
-            throw new InvalidOperationException($"Use {nameof(BlazorWindow)} component or a {nameof(TargetToken)}. Do not use both.");
-        }
-
         AttributeUtilities.ThrowsIfContains(AdditionalAttributes, "onclick");
     }
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "button");
-        builder.AddMultipleAttributes(1, AdditionalAttributes);
+        builder.AddMultipleAttributes(1, AttributeUtilities.Normalized(AdditionalAttributes, CascadedBlazorApplyTheme, nameof(BlazorWindowOpenButton)));
         builder.AddAttribute(2, "onclick", Clicked);
         builder.AddContent(3, ChildContent);
         builder.CloseElement();
@@ -52,12 +51,12 @@ public class BlazorWindowCloseAction : ComponentBase
     {
         if (CascadedBlazorWindow is not null)
         {
-            CascadedBlazorWindow?.CloseWindow();
+            CascadedBlazorWindow?.OpenWindow();
         }
         else
         {
             var windowComponent = TokenizeResolver.Resolve<BlazorWindow>(TargetToken);
-            windowComponent.CloseWindow();
+            windowComponent.OpenWindow();
         }
 
         await (OnClick?.InvokeAsync() ?? Task.CompletedTask);

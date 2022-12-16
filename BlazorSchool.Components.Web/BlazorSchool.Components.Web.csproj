@@ -49,10 +49,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\Theme\Bootstrap\v5.2.3.json">
+    <Content Update="wwwroot\Themes\BootstrapPack\v5.2.3.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\Theme\Bootstrap\v5.2.3.min.json">
+    <Content Update="wwwroot\Themes\BootstrapPack\v5.2.3.min.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

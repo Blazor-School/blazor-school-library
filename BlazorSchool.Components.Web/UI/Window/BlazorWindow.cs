@@ -1,10 +1,12 @@
-﻿using BlazorSchool.Components.Web.Core.Tokenize;
+﻿using BlazorSchool.Components.Web.Core;
+using BlazorSchool.Components.Web.Core.Tokenize;
+using BlazorSchool.Components.Web.Theme;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
 
 namespace BlazorSchool.Components.Web.UI.Window;
-public class BlazorWindow : TokenizeComponent
+public class BlazorWindow : TokenizeComponent, IThemable
 {
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -17,6 +19,9 @@ public class BlazorWindow : TokenizeComponent
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    [CascadingParameter]
+    public BlazorApplyTheme? CascadedBlazorApplyTheme { get; set; }
 
     public Lazy<IJSObjectReference> BlazorWindowModule = new();
     private bool _visibilityState = true;
@@ -73,7 +78,7 @@ public class BlazorWindow : TokenizeComponent
         if (_visibilityState)
         {
             builder.OpenElement(0, "blazor-window");
-            builder.AddMultipleAttributes(1, AdditionalAttributes);
+            builder.AddMultipleAttributes(1, AttributeUtilities.Normalized(AdditionalAttributes, CascadedBlazorApplyTheme, nameof(BlazorWindow)));
             builder.AddAttribute(1, "style", "position: absolute;");
             builder.AddAttribute(2, TokenAttributeKey, Token);
             builder.OpenComponent<CascadingValue<BlazorWindow>>(3);

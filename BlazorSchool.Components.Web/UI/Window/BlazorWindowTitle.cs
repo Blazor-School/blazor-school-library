@@ -1,10 +1,12 @@
-﻿using BlazorSchool.Components.Web.Core.Tokenize;
+﻿using BlazorSchool.Components.Web.Core;
+using BlazorSchool.Components.Web.Core.Tokenize;
+using BlazorSchool.Components.Web.Theme;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
 
 namespace BlazorSchool.Components.Web.UI.Window;
-public class BlazorWindowTitle : TokenizeComponent
+public class BlazorWindowTitle : TokenizeComponent, IThemable
 {
     [CascadingParameter]
     private BlazorWindow? CascadedBlazorWindow { get; set; }
@@ -14,6 +16,9 @@ public class BlazorWindowTitle : TokenizeComponent
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    [CascadingParameter]
+    public BlazorApplyTheme? CascadedBlazorApplyTheme { get; set; }
 
     protected override void OnParametersSet()
     {
@@ -40,7 +45,7 @@ public class BlazorWindowTitle : TokenizeComponent
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "div");
-        builder.AddMultipleAttributes(1, AdditionalAttributes);
+        builder.AddMultipleAttributes(1, AttributeUtilities.Normalized(AdditionalAttributes, CascadedBlazorApplyTheme, nameof(BlazorWindowTitle)));
         builder.AddAttribute(2, TokenAttributeKey, Token);
         builder.AddContent(3, ChildContent);
         builder.CloseElement();

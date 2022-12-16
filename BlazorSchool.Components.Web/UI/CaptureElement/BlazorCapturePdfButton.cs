@@ -28,6 +28,7 @@ public class BlazorCapturePdfButton : ComponentBase, IThemable
     [Inject]
     private IJSRuntime _jsRuntime { get; set; } = default!;
 
+    [CascadingParameter]
     public BlazorApplyTheme? CascadedBlazorApplyTheme { get; set; }
 
     private Lazy<IJSObjectReference> BlazorCaptureElementModule = new();

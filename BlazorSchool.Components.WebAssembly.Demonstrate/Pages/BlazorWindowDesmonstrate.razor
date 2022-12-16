@@ -12,16 +12,16 @@
 <BlazorWindow InitialVisibility="false" class="border border-3 border-primary" Token="window-token">
     <BlazorWindowTitle class="grabbable d-flex flex-row">
         <div class="bg-primary text-white">Drag me</div>
-        <BlazorWindowCloseAction class="btn btn-danger">Close</BlazorWindowCloseAction>
+        <BlazorWindowCloseButton class="btn btn-danger">Close</BlazorWindowCloseButton>
     </BlazorWindowTitle>
     <BlazorWindowContent>Window content</BlazorWindowContent>
 </BlazorWindow>
-<BlazorWindowOpenAction class="btn btn-success" TargetToken="window-token">Open</BlazorWindowOpenAction>
+<BlazorWindowOpenButton class="btn btn-success" TargetToken="window-token">Open</BlazorWindowOpenButton>
 
 <div>Button outside window</div>
 <BlazorWindow InitialVisibility="false" class="border border-3 border-primary" Token="window-token-2">
     <BlazorWindowTitle class="grabbable bg-primary text-white">Drag me</BlazorWindowTitle>
     <BlazorWindowContent>Window content</BlazorWindowContent>
 </BlazorWindow>
-<BlazorWindowCloseAction class="btn btn-danger" TargetToken="window-token-2">Close</BlazorWindowCloseAction>
-<BlazorWindowOpenAction class="btn btn-success" TargetToken="window-token-2">Open</BlazorWindowOpenAction>
+<BlazorWindowCloseButton class="btn btn-danger" TargetToken="window-token-2">Close</BlazorWindowCloseButton>
+<BlazorWindowOpenButton class="btn btn-success" TargetToken="window-token-2">Open</BlazorWindowOpenButton>

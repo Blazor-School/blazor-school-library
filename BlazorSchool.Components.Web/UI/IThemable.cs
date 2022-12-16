@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 
 namespace BlazorSchool.Components.Web.UI;
+
 public interface IThemable
 {
     [CascadingParameter]
