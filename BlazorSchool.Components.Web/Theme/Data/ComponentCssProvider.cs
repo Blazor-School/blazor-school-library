@@ -7,7 +7,7 @@ public class ComponentCssProvider
     {
         get
         {
-            InnerDict.TryGetValue(componentName, out string? value);
+            _ = InnerDict.TryGetValue(componentName, out string? value);
 
             return value;
         }

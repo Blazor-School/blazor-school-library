@@ -51,7 +51,7 @@ public class BlazorApplyTheme : TokenizeComponent
 
     private void TokenUpdate(IReadOnlyDictionary<string, object> parameterDictionary)
     {
-        parameterDictionary.TryGetValue(nameof(Token), out object? newTokenObj);
+        _ = parameterDictionary.TryGetValue(nameof(Token), out object? newTokenObj);
         string? newToken = newTokenObj as string;
 
         if (Token != newToken && !string.IsNullOrEmpty(newToken))
@@ -66,7 +66,7 @@ public class BlazorApplyTheme : TokenizeComponent
 
     private void ChildContentUpdate(IReadOnlyDictionary<string, object> parameterDictionary)
     {
-        parameterDictionary.TryGetValue(nameof(ChildContent), out object? newChildContentObj);
+        _ = parameterDictionary.TryGetValue(nameof(ChildContent), out object? newChildContentObj);
         var newChildContent = newChildContentObj as RenderFragment<ComponentCssProvider>;
         if (ChildContent != newChildContent)
         {
@@ -76,7 +76,7 @@ public class BlazorApplyTheme : TokenizeComponent
 
     private void InitialThemeUpdate(IReadOnlyDictionary<string, object> parameterDictionary)
     {
-        parameterDictionary.TryGetValue(nameof(InitialTheme), out object? newInitialThemeObj);
+        _ = parameterDictionary.TryGetValue(nameof(InitialTheme), out object? newInitialThemeObj);
         string? newInitialTheme = newInitialThemeObj as string;
         if (string.IsNullOrEmpty(newInitialTheme))
         {
@@ -97,7 +97,7 @@ public class BlazorApplyTheme : TokenizeComponent
 
     private async Task ExtendedThemePackPathUpdate(HttpClient httpClient, IReadOnlyDictionary<string, object> parameterDictionary)
     {
-        parameterDictionary.TryGetValue(nameof(ExtendedThemePackPath), out object? newExtendedConfigPathObj);
+        _ = parameterDictionary.TryGetValue(nameof(ExtendedThemePackPath), out object? newExtendedConfigPathObj);
         string? newExtendedConfigPath = newExtendedConfigPathObj as string;
         if (ExtendedThemePackPath != newExtendedConfigPath)
         {
@@ -117,7 +117,7 @@ public class BlazorApplyTheme : TokenizeComponent
 
     private async Task ThemePackPathUpdate(HttpClient httpClient, IReadOnlyDictionary<string, object> parameterDictionary)
     {
-        parameterDictionary.TryGetValue(nameof(ThemePackPath), out object? newThemePackPathObj);
+        _ = parameterDictionary.TryGetValue(nameof(ThemePackPath), out object? newThemePackPathObj);
         string? newThemePackPath = newThemePackPathObj as string;
         if (string.IsNullOrEmpty(newThemePackPath))
         {

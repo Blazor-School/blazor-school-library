@@ -1,7 +1,6 @@
 ﻿using BlazorSchool.Components.Web.Theme.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components.Web;
 
 namespace BlazorSchool.Components.Web.Theme;
 internal class ImportThemeFiles : ComponentBase

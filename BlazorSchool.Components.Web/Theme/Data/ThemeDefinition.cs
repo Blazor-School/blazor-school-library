@@ -1,5 +1,4 @@
-﻿using BlazorSchool.Components.Web.Theme.Data;
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace BlazorSchool.Components.Web.Theme.Data;
 internal class ThemeDefinition
@@ -10,7 +9,7 @@ internal class ThemeDefinition
 
     internal static ThemeDefinition FromJson(JsonElement jsonElement)
     {
-        jsonElement.TryGetProperty(nameof(Name), out var nameElement);
+        _ = jsonElement.TryGetProperty(nameof(Name), out var nameElement);
 
         if (nameElement.ValueKind is JsonValueKind.Undefined or JsonValueKind.Null)
         {
@@ -20,7 +19,7 @@ internal class ThemeDefinition
         string name = nameElement.Deserialize<string>()!;
         var imports = new List<ImportDefinition>();
         var components = new Dictionary<string, string>();
-        jsonElement.TryGetProperty(nameof(Imports), out var importElements);
+        _ = jsonElement.TryGetProperty(nameof(Imports), out var importElements);
 
         if (importElements.ValueKind is not JsonValueKind.Undefined and not JsonValueKind.Null)
         {
@@ -30,7 +29,7 @@ internal class ThemeDefinition
             }
         }
 
-        jsonElement.TryGetProperty(nameof(Components), out var componentElements);
+        _ = jsonElement.TryGetProperty(nameof(Components), out var componentElements);
 
         if (componentElements.ValueKind is not JsonValueKind.Undefined and not JsonValueKind.Null)
         {

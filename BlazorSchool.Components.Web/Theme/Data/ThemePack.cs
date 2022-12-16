@@ -17,14 +17,14 @@ internal class ThemePack
     internal static ThemePack FromJson(string json)
     {
         var jsonElement = JsonSerializer.Deserialize<JsonElement>(json);
-        jsonElement.TryGetProperty(nameof(Name), out var nameElement);
+        _ = jsonElement.TryGetProperty(nameof(Name), out var nameElement);
 
         if (nameElement.ValueKind is JsonValueKind.Undefined or JsonValueKind.Null)
         {
             throw new InvalidOperationException($"The theme config must have a {nameof(Name)} property");
         }
-        
-        jsonElement.TryGetProperty(nameof(Author), out var authorElement);
+
+        _ = jsonElement.TryGetProperty(nameof(Author), out var authorElement);
 
         if (authorElement.ValueKind is JsonValueKind.Undefined or JsonValueKind.Null)
         {
@@ -35,7 +35,7 @@ internal class ThemePack
         string author = authorElement.Deserialize<string>()!;
         var themes = new List<ThemeDefinition>();
 
-        jsonElement.TryGetProperty(nameof(Themes), out var themeElements);
+        _ = jsonElement.TryGetProperty(nameof(Themes), out var themeElements);
 
         if (themeElements.ValueKind is not JsonValueKind.Undefined and not JsonValueKind.Null)
         {
@@ -48,7 +48,7 @@ internal class ThemePack
         return new()
         {
             Name = name,
-            Author= author,
+            Author = author,
             Themes = themes
         };
     }

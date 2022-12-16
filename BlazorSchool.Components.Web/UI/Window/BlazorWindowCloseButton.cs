@@ -24,7 +24,7 @@ public class BlazorWindowCloseButton : ComponentBase, IThemable
 
     [CascadingParameter]
     public BlazorApplyTheme? CascadedBlazorApplyTheme { get; set; }
-    
+
     [Inject]
     private TokenizeResolver TokenizeResolver { get; set; } = default!;
 

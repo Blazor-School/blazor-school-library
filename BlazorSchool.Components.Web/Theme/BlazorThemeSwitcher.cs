@@ -21,14 +21,11 @@ public class BlazorThemeSwitcher : ComponentBase, IDisposable
     private BlazorThemePack CurrentThemePack => GetCurrentThemePack();
     private BlazorApplyTheme? _currentBlazorApplyTheme;
 
-    protected override void BuildRenderTree(RenderTreeBuilder builder)
-    {
-        builder.AddContent(0, ChildContent?.Invoke(CurrentThemePack));
-    }
+    protected override void BuildRenderTree(RenderTreeBuilder builder) => builder.AddContent(0, ChildContent?.Invoke(CurrentThemePack));
 
     protected override void OnParametersSet()
     {
-        if(CascadedBlazorApplyTheme is null && string.IsNullOrEmpty(TargetToken))
+        if (CascadedBlazorApplyTheme is null && string.IsNullOrEmpty(TargetToken))
         {
             throw new InvalidOperationException($"You either use {nameof(BlazorThemeSwitcher)} inside {nameof(BlazorApplyTheme)} or privide the {nameof(TargetToken)}.");
         }
@@ -62,7 +59,7 @@ public class BlazorThemeSwitcher : ComponentBase, IDisposable
 
     public void Dispose()
     {
-        if(CascadedBlazorApplyTheme is null)
+        if (CascadedBlazorApplyTheme is null)
         {
             _currentBlazorApplyTheme.OnComponentUpdated -= OnBlazorApplyThemeUpdate;
         }
