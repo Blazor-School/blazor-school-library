@@ -1,23 +1,26 @@
 [
-    {
-        "outputFileName": "wwwroot/BlazorWindow.min.js",
-        "inputFiles":
-        [
-            "UI/Window/BlazorWindow.js"
-        ]
-    },
-    {
-        "outputFileName": "wwwroot/BlazorTokenize.min.js",
-        "inputFiles":
-        [
-            "Core/Tokenize/BlazorTokenize.js"
-        ]
-    },
-    {
-        "outputFileName": "wwwroot/BlazorCaptureElement.min.js",
-        "inputFiles":
-        [
-            "UI/CaptureElement/BlazorCaptureElement.js"
-        ]
-    }
+  {
+    "outputFileName": "wwwroot/BlazorWindow.min.js",
+    "inputFiles": [
+      "UI/Window/BlazorWindow.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/BlazorTokenize.min.js",
+    "inputFiles": [
+      "Core/Tokenize/BlazorTokenize.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/BlazorCaptureElement.min.js",
+    "inputFiles": [
+      "UI/CaptureElement/BlazorCaptureElement.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/Themes/Default/Jackdaw.min.css",
+    "inputFiles": [
+      "wwwroot/Themes/Default/Jackdaw.css"
+    ]
+  }
 ]

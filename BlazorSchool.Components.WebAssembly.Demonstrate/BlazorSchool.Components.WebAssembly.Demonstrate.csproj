@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -13,6 +13,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorSchool.Components.Web\BlazorSchool.Components.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Pages\BlazorApplyThemeDesmonstrate.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
   </ItemGroup>
 
 </Project>
