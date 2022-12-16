@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
 namespace BlazorSchool.Components.Web.Theme;
-public class BlazorThemeSwitcher : ComponentBase
+public class BlazorThemeSwitcher : ComponentBase, IDisposable
 {
     [Parameter]
     public RenderFragment<BlazorThemePack>? ChildContent { get; set; }
@@ -19,6 +19,7 @@ public class BlazorThemeSwitcher : ComponentBase
     private TokenizeResolver TokenizeResolver { get; set; } = default!;
 
     private BlazorThemePack CurrentThemePack => GetCurrentThemePack();
+    private BlazorApplyTheme? _currentBlazorApplyTheme;
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
@@ -40,19 +41,30 @@ public class BlazorThemeSwitcher : ComponentBase
 
     private BlazorThemePack GetCurrentThemePack()
     {
-        var blazorApplyTheme = CascadedBlazorApplyTheme;
+        _currentBlazorApplyTheme = CascadedBlazorApplyTheme;
 
         if (CascadedBlazorApplyTheme is null)
         {
-            blazorApplyTheme = TokenizeResolver.Resolve<BlazorApplyTheme>(TargetToken);
+            _currentBlazorApplyTheme = TokenizeResolver.Resolve<BlazorApplyTheme>(TargetToken);
+            _currentBlazorApplyTheme.OnComponentUpdated += OnBlazorApplyThemeUpdate;
         }
 
         return new()
         {
-            BlazorApplyTheme = blazorApplyTheme,
-            Author = blazorApplyTheme.CurrentThemePack.Author,
-            Name = blazorApplyTheme.CurrentThemePack.Name,
-            Themes = blazorApplyTheme.CurrentThemePack.Themes.Select(t => t.Name).ToList()
+            BlazorApplyTheme = _currentBlazorApplyTheme,
+            Author = _currentBlazorApplyTheme.CurrentThemePack.Author,
+            Name = _currentBlazorApplyTheme.CurrentThemePack.Name,
+            Themes = _currentBlazorApplyTheme.CurrentThemePack.Themes.Select(t => t.Name).ToList()
         };
+    }
+
+    private void OnBlazorApplyThemeUpdate(object? sender, EventArgs args) => StateHasChanged();
+
+    public void Dispose()
+    {
+        if(CascadedBlazorApplyTheme is null)
+        {
+            _currentBlazorApplyTheme.OnComponentUpdated -= OnBlazorApplyThemeUpdate;
+        }
     }
 }

@@ -1,24 +1,22 @@
 ﻿using BlazorSchool.Components.Web.Core.Tokenize;
 using BlazorSchool.Components.Web.Theme.Data;
-using BlazorSchool.Components.Web.UI.Window;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components.Web;
 
 namespace BlazorSchool.Components.Web.Theme;
 public class BlazorApplyTheme : TokenizeComponent
 {
     [Parameter]
-    public string ThemeConfigPath { get; set; } = "";
+    public string ThemePackPath { get; set; } = "";
 
     [Parameter]
     public string InitialTheme { get; set; } = "";
 
     [Parameter]
-    public RenderFragment<Dictionary<string, string>>? ChildContent { get; set; }
+    public RenderFragment<ComponentCssProvider>? ChildContent { get; set; }
 
     [Parameter]
-    public string ExtendedConfigPath { get; set; } = "";
+    public string? ExtendedThemePackPath { get; set; } = "";
 
     [Inject]
     private IHttpClientFactory HttpClientFactory { get; set; } = default!;
@@ -26,82 +24,112 @@ public class BlazorApplyTheme : TokenizeComponent
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
 
+    public string? this[string key] => CurrentCssProvider[key];
+
     internal ThemePack CurrentThemePack { get; set; } = new();
-    internal ThemeDefinition CurrentTheme { get; set; } = new();
+    internal ThemeDefinition? CurrentTheme { get; set; } = new();
+    internal ComponentCssProvider CurrentCssProvider { get; set; } = new();
     internal ThemePack ThemePackBase { get; set; } = new();
     internal ThemePack ExtendedThemePack { get; set; } = new();
 
     // Use SetParametersAsync to keep high performance
     public override async Task SetParametersAsync(ParameterView parameters)
     {
-        _ = parameters.TryGetValue(nameof(ThemeConfigPath), out string? newThemeConfigPath);
-        if (string.IsNullOrEmpty(newThemeConfigPath))
-        {
-            throw new InvalidOperationException($"The {nameof(ThemeConfigPath)} must not be empty.");
-        }
+        var httpClient = HttpClientFactory.CreateClient("__internal_blazor_library_http");
+        httpClient.BaseAddress = new(NavigationManager.BaseUri);
+        var parameterDictionary = parameters.ToDictionary();
 
-        _ = parameters.TryGetValue(nameof(InitialTheme), out string? newInitialTheme);
+        TokenUpdate(parameterDictionary);
+        await ThemePackPathUpdate(httpClient, parameterDictionary);
+        await ExtendedThemePackPathUpdate(httpClient, parameterDictionary);
+        MergeTheme();
+        InitialThemeUpdate(parameterDictionary);
+        ChildContentUpdate(parameterDictionary);
+
+        await base.SetParametersAsync(ParameterView.Empty);
+    }
+
+    private void TokenUpdate(IReadOnlyDictionary<string, object> parameterDictionary)
+    {
+        parameterDictionary.TryGetValue(nameof(Token), out object? newTokenObj);
+        string? newToken = newTokenObj as string;
+
+        if (Token != newToken && !string.IsNullOrEmpty(newToken))
+        {
+            Token = newToken;
+            RegisterTokenize();
+        }
+    }
+
+    // Don't allow Tokenizer initialized. Otherwise, the component will be registered twice.
+    protected override void OnInitialized() => NotifyComponentUpdated();
+
+    private void ChildContentUpdate(IReadOnlyDictionary<string, object> parameterDictionary)
+    {
+        parameterDictionary.TryGetValue(nameof(ChildContent), out object? newChildContentObj);
+        var newChildContent = newChildContentObj as RenderFragment<ComponentCssProvider>;
+        if (ChildContent != newChildContent)
+        {
+            ChildContent = newChildContent;
+        }
+    }
+
+    private void InitialThemeUpdate(IReadOnlyDictionary<string, object> parameterDictionary)
+    {
+        parameterDictionary.TryGetValue(nameof(InitialTheme), out object? newInitialThemeObj);
+        string? newInitialTheme = newInitialThemeObj as string;
         if (string.IsNullOrEmpty(newInitialTheme))
         {
             throw new InvalidOperationException($"The {nameof(InitialTheme)} must not be empty.");
         }
 
-        var httpClient = HttpClientFactory.CreateClient("__internal_blazor_library_http");
-        httpClient.BaseAddress = new(NavigationManager.BaseUri);
-        foreach (var parameter in parameters)
+        if (InitialTheme != newInitialTheme)
         {
-            switch (parameter.Name)
+            InitialTheme = newInitialTheme;
+            ChangeTheme(InitialTheme, false);
+
+            if (CurrentTheme is null)
             {
-                case nameof(ThemeConfigPath):
-
-                    if (ThemeConfigPath != newThemeConfigPath)
-                    {
-                        ThemeConfigPath = newThemeConfigPath;
-                        string themeConfigJson = await httpClient.GetStringAsync(ThemeConfigPath) ?? throw new InvalidOperationException($"Could not get the theme JSON at {ThemeConfigPath}.");
-                        ThemePackBase = ThemePack.FromJson(themeConfigJson);
-                        MergeTheme();
-                    }
-
-                    break;
-
-                case nameof(ExtendedConfigPath):
-
-                    if (parameter.Value is string newExtendedConfigPath && ExtendedConfigPath != newExtendedConfigPath)
-                    {
-                        ExtendedConfigPath = newExtendedConfigPath;
-                        string extendedThemeConfig = await httpClient.GetStringAsync(ExtendedConfigPath) ?? throw new InvalidOperationException($"Could not get the theme JSON at {ExtendedConfigPath}.");
-                        ExtendedThemePack = ThemePack.FromJson(extendedThemeConfig);
-                        MergeTheme();
-                    }
-
-                    break;
-                case nameof(InitialTheme):
-
-                    if (InitialTheme != newInitialTheme)
-                    {
-                        InitialTheme = newInitialTheme;
-                        ChangeTheme(InitialTheme, false);
-
-                        if (CurrentTheme is null)
-                        {
-                            throw new InvalidOperationException($"The initial theme {InitialTheme} not found.");
-                        }
-                    }
-
-                    break;
-
-                case nameof(ChildContent):
-
-                    if (parameter.Value is RenderFragment<Dictionary<string, string>> newChildContent && ChildContent != newChildContent)
-                    {
-                        ChildContent = newChildContent;
-                    }
-
-                    break;
+                throw new InvalidOperationException($"The initial theme {InitialTheme} not found.");
             }
         }
+    }
 
-        await base.SetParametersAsync(ParameterView.Empty);
+    private async Task ExtendedThemePackPathUpdate(HttpClient httpClient, IReadOnlyDictionary<string, object> parameterDictionary)
+    {
+        parameterDictionary.TryGetValue(nameof(ExtendedThemePackPath), out object? newExtendedConfigPathObj);
+        string? newExtendedConfigPath = newExtendedConfigPathObj as string;
+        if (ExtendedThemePackPath != newExtendedConfigPath)
+        {
+            ExtendedThemePackPath = newExtendedConfigPath;
+
+            if (!string.IsNullOrEmpty(ExtendedThemePackPath))
+            {
+                string extendedThemeConfig = await httpClient.GetStringAsync(ExtendedThemePackPath) ?? throw new InvalidOperationException($"Could not get the theme JSON at {ExtendedThemePackPath}.");
+                ExtendedThemePack = ThemePack.FromJson(extendedThemeConfig);
+            }
+            else
+            {
+                ExtendedThemePack = new();
+            }
+        }
+    }
+
+    private async Task ThemePackPathUpdate(HttpClient httpClient, IReadOnlyDictionary<string, object> parameterDictionary)
+    {
+        parameterDictionary.TryGetValue(nameof(ThemePackPath), out object? newThemePackPathObj);
+        string? newThemePackPath = newThemePackPathObj as string;
+        if (string.IsNullOrEmpty(newThemePackPath))
+        {
+            throw new InvalidOperationException($"The {nameof(ThemePackPath)} must not be empty.");
+        }
+
+        if (ThemePackPath != newThemePackPath)
+        {
+            ThemePackPath = newThemePackPath;
+            string themeConfigJson = await httpClient.GetStringAsync(ThemePackPath) ?? throw new InvalidOperationException($"Could not get the theme JSON at {ThemePackPath}.");
+            ThemePackBase = ThemePack.FromJson(themeConfigJson);
+        }
     }
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -116,9 +144,9 @@ public class BlazorApplyTheme : TokenizeComponent
 
     private void RenderChildContent(RenderTreeBuilder builder)
     {
-        builder.AddContent(0, ChildContent?.Invoke(CurrentTheme.Components));
+        builder.AddContent(0, ChildContent?.Invoke(CurrentCssProvider));
         builder.OpenComponent<ImportThemeFiles>(1);
-        builder.AddAttribute(2, nameof(ImportThemeFiles.Imports), CurrentTheme.Imports);
+        builder.AddAttribute(2, nameof(ImportThemeFiles.Imports), CurrentTheme?.Imports);
         builder.CloseComponent();
     }
 
@@ -156,12 +184,14 @@ public class BlazorApplyTheme : TokenizeComponent
             throw new InvalidOperationException($"No theme provided.");
         }
 
-        CurrentTheme = CurrentThemePack.Themes.FirstOrDefault(t => t.Name == name) ?? new();
+        CurrentTheme = CurrentThemePack.Themes.FirstOrDefault(t => t.Name == name);
 
         if (CurrentTheme is null)
         {
-            throw new InvalidOperationException($"Theme name {name} not found.");
+            throw new InvalidOperationException($"Theme name \"{name}\" not found. Select one of the following themes: {string.Join(",", CurrentThemePack.Themes.Select(t => $"\"{t.Name}\""))}");
         }
+
+        CurrentCssProvider.InnerDict = CurrentTheme.Components;
 
         if (withRender)
         {

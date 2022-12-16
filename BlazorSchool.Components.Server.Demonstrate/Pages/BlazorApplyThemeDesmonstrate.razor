@@ -1,12 +1,22 @@
 ﻿@page "/blazor-apply-theme-demonstrate"
 @using BlazorSchool.Components.Web.Theme;
 
-<BlazorApplyTheme ThemeConfigPath="@DefaultTheme.Bootstrap" InitialTheme="dark" ExtendedConfigPath="theme-packs/MyTheme.json" Context="ApplyTheme">
+<BlazorApplyTheme ThemePackPath="@DefaultTheme.Bootstrap" InitialTheme="Blue Lover" ExtendedThemePackPath="theme-packs/MyTheme.json" Context="ApplyTheme">
     <button class="@ApplyTheme["my-element"]">My button</button>
     <BlazorThemeSwitcher Context="ThemeSwitcher">
-        @foreach(string themeName in ThemeSwitcher.Themes)
+        @foreach (string themeName in ThemeSwitcher.Themes)
         {
             <button type="button" @onclick="_ => ThemeSwitcher.ChangeTheme(themeName)">Switch to @themeName</button>
         }
     </BlazorThemeSwitcher>
 </BlazorApplyTheme>
+
+<BlazorApplyTheme ThemePackPath="@DefaultTheme.Bootstrap" InitialTheme="Theme 1" ExtendedThemePackPath="theme-packs/MyTheme.json" Context="ApplyTheme" Token="second-blazor-apply-theme">
+    <button class="@ApplyTheme["my-element"]">My button</button>
+</BlazorApplyTheme>
+<BlazorThemeSwitcher Context="ThemeSwitcher" TargetToken="second-blazor-apply-theme">
+    @foreach (string themeName in ThemeSwitcher.Themes)
+    {
+        <button type="button" @onclick="_ => ThemeSwitcher.ChangeTheme(themeName)">Switch to @themeName</button>
+    }
+</BlazorThemeSwitcher>

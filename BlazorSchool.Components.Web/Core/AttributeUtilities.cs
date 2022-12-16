@@ -1,21 +1,21 @@
-﻿using System.Globalization;
+﻿using BlazorSchool.Components.Web.Theme;
 
 namespace BlazorSchool.Components.Web.Core;
 internal static class AttributeUtilities
 {
-    public static string? CombineClassNames(IReadOnlyDictionary<string, object>? additionalAttributes, string? classNames)
+    public static IReadOnlyDictionary<string, object>? Normalized(IReadOnlyDictionary<string, object>? originalReadOnlyDictionary, BlazorApplyTheme? blazorApplyTheme, string callingComponent) => originalReadOnlyDictionary switch
     {
-        if (additionalAttributes is null || !additionalAttributes.TryGetValue("class", out object? @class))
-        {
-            return classNames;
-        }
-
-        string? classAttributeValue = Convert.ToString(@class, CultureInfo.InvariantCulture);
-
-        return string.IsNullOrEmpty(classAttributeValue)
-            ? classNames
-            : string.IsNullOrEmpty(classNames) ? classAttributeValue : $"{classAttributeValue} {classNames}";
-    }
+        _ when blazorApplyTheme is null => originalReadOnlyDictionary,
+        _ when originalReadOnlyDictionary is null || !originalReadOnlyDictionary.Any() => new Dictionary<string, object>()
+            {
+                { "class", blazorApplyTheme[callingComponent] }
+            },
+        _ when originalReadOnlyDictionary.ContainsKey("class") => originalReadOnlyDictionary,
+        _ => new Dictionary<string, object>(originalReadOnlyDictionary)
+            {
+                { "class", blazorApplyTheme[callingComponent] }
+            },
+    };
 
     public static void ThrowsIfContains(IReadOnlyDictionary<string, object>? additionalAttributes, params string[] attributeList)
     {

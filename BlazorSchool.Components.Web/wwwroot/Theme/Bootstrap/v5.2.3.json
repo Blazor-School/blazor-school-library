@@ -1,0 +1,14 @@
+{
+    "Name": "Bootstrap",
+    "Author": "Blazor Library",
+    "Themes":
+    [
+        {
+            "Name": "Blue Lover",
+            "Components":
+            {
+                "BlazorWindow": "bg-primary text-white"
+            }
+        }
+    ]
+}
