@@ -18,9 +18,9 @@
     ]
   },
   {
-    "outputFileName": "wwwroot/Theme/Bootstrap/blue-lover.min.css",
+    "outputFileName": "wwwroot/Themes/Default/Jackdaw.min.css",
     "inputFiles": [
-      "wwwroot/Theme/Bootstrap/blue-lover.css"
+      "wwwroot/Themes/Default/Jackdaw.css"
     ]
   }
 ]
