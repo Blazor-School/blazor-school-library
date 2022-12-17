@@ -15,7 +15,7 @@ public class BlazorWindow : TokenizeComponent, IThemable
     public bool? InitialVisibility { get; set; }
 
     [Inject]
-    private IJSRuntime _jsRuntime { get; set; } = default!;
+    private IJSRuntime JsRuntime { get; set; } = default!;
 
     [Parameter(CaptureUnmatchedValues = true)]
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
@@ -25,7 +25,6 @@ public class BlazorWindow : TokenizeComponent, IThemable
 
     public Lazy<IJSObjectReference> BlazorWindowModule = new();
     private bool _visibilityState = true;
-    private string _cssClass = "";
 
     protected override void OnInitialized()
     {
@@ -35,7 +34,7 @@ public class BlazorWindow : TokenizeComponent, IThemable
 
     protected override void OnParametersSet()
     {
-        // Need to rethink this
+        // The user can only pass BlazorWindowTitle or Content and this check still passes. Need to think for another way to do this or remove it at all.
         if (ChildContent is null)
         {
             throw new InvalidOperationException($"You need to specify both '{nameof(BlazorWindowTitle)}' and '{nameof(BlazorWindowContent)}'.");
@@ -51,10 +50,7 @@ public class BlazorWindow : TokenizeComponent, IThemable
             }
         }
 
-        if (AdditionalAttributes is not null && AdditionalAttributes.TryGetValue("class", out object? cssClass))
-        {
-            _cssClass = cssClass?.ToString() ?? "";
-        }
+        AttributeUtilities.ThrowsIfContains(AdditionalAttributes, TokenAttributeKey);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -69,7 +65,7 @@ public class BlazorWindow : TokenizeComponent, IThemable
     {
         if (!BlazorWindowModule.IsValueCreated)
         {
-            BlazorWindowModule = new(await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BlazorSchool.Components.Web/BlazorWindow.min.js"));
+            BlazorWindowModule = new(await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BlazorSchool.Components.Web/BlazorWindow.min.js"));
         }
     }
 
