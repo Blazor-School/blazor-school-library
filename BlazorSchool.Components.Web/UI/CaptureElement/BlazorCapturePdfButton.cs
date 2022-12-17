@@ -26,18 +26,18 @@ public class BlazorCapturePdfButton : ComponentBase, IThemable
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
     [Inject]
-    private IJSRuntime _jsRuntime { get; set; } = default!;
+    private IJSRuntime JsRuntime { get; set; } = default!;
 
     [CascadingParameter]
     public BlazorApplyTheme? CascadedBlazorApplyTheme { get; set; }
 
-    private Lazy<IJSObjectReference> BlazorCaptureElementModule = new();
+    private Lazy<IJSObjectReference> _blazorCaptureElementModule = new();
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (!BlazorCaptureElementModule.IsValueCreated)
+        if (!_blazorCaptureElementModule.IsValueCreated)
         {
-            BlazorCaptureElementModule = new(await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BlazorSchool.Components.Web/BlazorCaptureElement.min.js"));
+            _blazorCaptureElementModule = new(await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BlazorSchool.Components.Web/BlazorCaptureElement.min.js"));
         }
 
         AttributeUtilities.ThrowsIfContains(AdditionalAttributes, "onclick", "type");
@@ -59,7 +59,7 @@ public class BlazorCapturePdfButton : ComponentBase, IThemable
     private async Task CapturePdfAsync()
     {
         await OnClick.InvokeAsync();
-        if (BlazorCaptureElementModule.IsValueCreated)
+        if (_blazorCaptureElementModule.IsValueCreated)
         {
             string? token = TargetToken;
 
@@ -69,7 +69,7 @@ public class BlazorCapturePdfButton : ComponentBase, IThemable
             }
 
             var wrappedInstance = DotNetObjectReference.Create(this);
-            await BlazorCaptureElementModule.Value.InvokeVoidAsync("capturePdf", token, wrappedInstance);
+            await _blazorCaptureElementModule.Value.InvokeVoidAsync("capturePdf", token, wrappedInstance);
         }
     }
 }

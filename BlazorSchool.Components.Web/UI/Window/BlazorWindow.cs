@@ -77,7 +77,7 @@ public class BlazorWindow : TokenizeComponent, IThemable
     {
         if (_visibilityState)
         {
-            builder.OpenElement(0, "blazor-window");
+            builder.OpenElement(0, HtmlTagUtilities.ToHtmlTag(nameof(BlazorWindow)));
             builder.AddMultipleAttributes(1, AttributeUtilities.Normalized(AdditionalAttributes, CascadedBlazorApplyTheme, nameof(BlazorWindow)));
             builder.AddAttribute(1, "style", "position: absolute;");
             builder.AddAttribute(2, TokenAttributeKey, Token);
