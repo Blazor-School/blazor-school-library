@@ -4,13 +4,10 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
 namespace BlazorSchool.Components.Web.Theme;
-public class BlazorThemeSwitcher : ComponentBase, IDisposable
+public class BlazorThemeSwitcher : TargetTokenize, IDisposable
 {
     [Parameter]
     public RenderFragment<BlazorThemePack>? ChildContent { get; set; }
-
-    [Parameter]
-    public string TargetToken { get; set; } = "";
 
     [CascadingParameter]
     private BlazorApplyTheme? CascadedBlazorApplyTheme { get; set; }

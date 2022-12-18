@@ -13,13 +13,42 @@ public class BlazorCollapse : TokenizeComponent, IThemable
     [Parameter(CaptureUnmatchedValues = true)]
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
+    [Parameter]
+    public string ShowClass { get; set; } = "show";
+
+    [Parameter]
+    public string HideClass { get; set; } = "hide";
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public bool InitialVisibility { get; set; }
+
+    private bool _currentVisibility;
+
     protected override void OnParametersSet() => AttributeUtilities.ThrowsIfContains(AdditionalAttributes, TokenAttributeKey);
+
+    protected override void OnInitialized()
+    {
+        RegisterTokenize();
+        _currentVisibility = InitialVisibility;
+    }
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenElement(1, HtmlTagUtilities.ToHtmlTag(nameof(BlazorCollapse)));
-        builder.AddAttribute(2, TokenAttributeKey, Token);
-        builder.AddMultipleAttributes(3, AttributeUtilities.Normalized(AdditionalAttributes, CascadedBlazorApplyTheme, nameof(BlazorCollapse)));
+        var attachedAttributes = AttributeUtilities.Normalized(AdditionalAttributes, CascadedBlazorApplyTheme, nameof(BlazorCollapse));
+        attachedAttributes = AttributeUtilities.AttachCssClass(attachedAttributes, _currentVisibility ? ShowClass : HideClass);
+        builder.OpenElement(0, HtmlTagUtilities.ToHtmlTag(nameof(BlazorCollapse)));
+        builder.AddAttribute(1, TokenAttributeKey, Token);
+        builder.AddMultipleAttributes(2, attachedAttributes);
+        builder.AddContent(3, ChildContent);
         builder.CloseElement();
+    }
+
+    internal void ToggleVisibility()
+    {
+        _currentVisibility = !_currentVisibility;
+        StateHasChanged();
     }
 }

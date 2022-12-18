@@ -1,15 +1,13 @@
 ﻿using BlazorSchool.Components.Web.Core;
+using BlazorSchool.Components.Web.Core.Tokenize;
 using BlazorSchool.Components.Web.Theme;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
 
 namespace BlazorSchool.Components.Web.UI.CaptureElement;
-public class BlazorCapturePdfButton : ComponentBase, IThemable
+public class BlazorCapturePdfButton : TargetTokenize, IThemable
 {
-    [Parameter]
-    public string? TargetToken { get; set; }
-
     [CascadingParameter]
     private BlazorCaptureElement? CascadedBlazorCaptureElement { get; set; }
 

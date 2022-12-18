@@ -18,7 +18,7 @@ internal static partial class AttributeUtilities
             },
     };
 
-    public static IReadOnlyDictionary<string, object>? AttachCssClass(IReadOnlyDictionary<string, object>? originalReadOnlyDictionary, string cssClasses)
+    public static IReadOnlyDictionary<string, object> AttachCssClass(IReadOnlyDictionary<string, object>? originalReadOnlyDictionary, string cssClasses)
     {
         if (originalReadOnlyDictionary is null)
         {
@@ -39,11 +39,7 @@ internal static partial class AttributeUtilities
             string joinedCssClasses = string.Join(" ", originalCssClasses, cssClasses);
             var splitedCssClasses = joinedCssClasses.Split(" ").Distinct();
             string finalCssClasses = string.Join(" ", splitedCssClasses);
-
-            result = new(originalReadOnlyDictionary)
-            {
-                { "class", finalCssClasses }
-            };
+            result["class"]= finalCssClasses;
         }
 
         return result;

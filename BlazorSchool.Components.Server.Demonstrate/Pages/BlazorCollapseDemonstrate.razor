@@ -1,0 +1,25 @@
+﻿@page "/blazor-collapse-demonstrate"
+@using BlazorSchool.Components.Web.Theme
+@using BlazorSchool.Components.Web.UI.Collapse
+
+@*<BlazorCollapse Token="blazor-collapse1">
+    Collapse 1
+</BlazorCollapse>
+<BlazorCollapseToggleButton TargetToken="blazor-collapse1">Toggle</BlazorCollapseToggleButton>
+
+<BlazorCollapse class="border border-3 border-primary" Token="blazor-collapse2">
+    Collapse 2
+</BlazorCollapse>
+<BlazorCollapseToggleButton TargetToken="blazor-collapse2">Toggle</BlazorCollapseToggleButton>
+
+<BlazorCollapse ShowClass="my-class1 show-this" HideClass="my-class2 hide-this" Token="blazor-collapse3">
+    Collapse 3
+</BlazorCollapse>
+<BlazorCollapseToggleButton TargetToken="blazor-collapse3">Toggle</BlazorCollapseToggleButton>*@
+
+<BlazorApplyTheme ThemePackPath="@DefaultTheme.Bootstrap" InitialTheme="Jackdaw">
+    <BlazorCollapse Token="blazor-collapse-jackdaw">
+        Collapse with Jackdaw
+    </BlazorCollapse>
+    <BlazorCollapseToggleButton TargetToken="blazor-collapse-jackdaw">Toggle</BlazorCollapseToggleButton>
+</BlazorApplyTheme>
