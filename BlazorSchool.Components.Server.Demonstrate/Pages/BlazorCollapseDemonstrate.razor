@@ -2,24 +2,105 @@
 @using BlazorSchool.Components.Web.Theme
 @using BlazorSchool.Components.Web.UI.Collapse
 
-@*<BlazorCollapse Token="blazor-collapse1">
-    Collapse 1
-</BlazorCollapse>
-<BlazorCollapseToggleButton TargetToken="blazor-collapse1">Toggle</BlazorCollapseToggleButton>
+<div class="border border-3 border-primary p-5 m-2">
+    <p>Blazor Collapse with <code>Jackdaw</code> (initial collapsed).</p>
+    <BlazorApplyTheme ThemePackPath="@DefaultTheme.Bootstrap" InitialTheme="Jackdaw">
+        <BlazorCollapseToggleButton TargetToken="blazor-collapse-jackdaw-1">Toggle</BlazorCollapseToggleButton>
+        <BlazorCollapse Token="blazor-collapse-jackdaw-1">
+            <div class="card card-body" style="width: 300px;">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
+        </BlazorCollapse>
+    </BlazorApplyTheme>
+</div>
 
-<BlazorCollapse class="border border-3 border-primary" Token="blazor-collapse2">
-    Collapse 2
-</BlazorCollapse>
-<BlazorCollapseToggleButton TargetToken="blazor-collapse2">Toggle</BlazorCollapseToggleButton>
+<div class="border border-3 border-primary p-5 m-2">
+    <p>Blazor Collapse with <code>Jackdaw</code> (initial uncollapsed).</p>
+    <BlazorApplyTheme ThemePackPath="@DefaultTheme.Bootstrap" InitialTheme="Jackdaw">
+        <BlazorCollapseToggleButton TargetToken="blazor-collapse-jackdaw-2">Toggle</BlazorCollapseToggleButton>
+        <BlazorCollapse InitialVisibility="true" Token="blazor-collapse-jackdaw-2">
+            <div class="card card-body" style="width: 300px;">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
+        </BlazorCollapse>
+    </BlazorApplyTheme>
+</div>
 
-<BlazorCollapse ShowClass="my-class1 show-this" HideClass="my-class2 hide-this" Token="blazor-collapse3">
-    Collapse 3
-</BlazorCollapse>
-<BlazorCollapseToggleButton TargetToken="blazor-collapse3">Toggle</BlazorCollapseToggleButton>*@
-
-<BlazorApplyTheme ThemePackPath="@DefaultTheme.Bootstrap" InitialTheme="Jackdaw">
-    <BlazorCollapse Token="blazor-collapse-jackdaw">
-        Collapse with Jackdaw
+<div class="border border-3 border-primary p-5 m-2">
+    <p>Without Jackdaw, the class will be toggled with <code>show</code> and <code>hide</code>. You will need to implement the CSS yourself.</p>
+    <BlazorCollapseToggleButton class="btn btn-danger" TargetToken="blazor-collapse1">Toggle</BlazorCollapseToggleButton>
+    <BlazorCollapse Token="blazor-collapse1">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </BlazorCollapse>
-    <BlazorCollapseToggleButton TargetToken="blazor-collapse-jackdaw">Toggle</BlazorCollapseToggleButton>
-</BlazorApplyTheme>
+</div>
+
+<div class="border border-3 border-primary p-5 m-2">
+    <p>Overriding <code>BlazorCollapse</code> base class to customize the animation.</p>
+    <BlazorCollapseToggleButton class="btn btn-info" TargetToken="blazor-collapse2">Toggle</BlazorCollapseToggleButton>
+    <BlazorCollapse class="my-collapse" Token="blazor-collapse2">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </BlazorCollapse>
+</div>
+
+<div class="border border-3 border-primary p-5 m-2">
+    <p>Overriding <code>BlazorCollapse</code> base class, show and hide classes to customize the animation.</p>
+    <BlazorCollapseToggleButton class="btn btn-secondary" TargetToken="blazor-collapse3">Toggle</BlazorCollapseToggleButton>
+    <BlazorCollapse class="my-collapse" ShowClass="show-this" HideClass="hide-this" Token="blazor-collapse3">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </BlazorCollapse>
+</div>
+
+<style>
+    .show, .show-this
+    {
+        display: block;
+        overflow: hidden;
+        max-height: 100vh;
+        transition: max-height 0.25s linear;
+    }
+
+    .hide, .hide-this
+    {
+        display: block;
+        max-height: 0px;
+        overflow: hidden;
+        transition: max-height 0.25s linear;
+    }
+
+    .my-collapse.show
+    {
+        display: unset;
+        animation: myAnimation 0.5s ease-out;
+    }
+
+    .my-collapse.hide
+    {
+        display: none;
+    }
+
+    .my-collapse
+    {
+        border: 3px solid green;
+    }
+
+    @@keyframes myAnimation
+    {
+        0%
+        {
+            display: none;
+            opacity: 0;
+        }
+
+        1%
+        {
+            display: block;
+            opacity: 0;
+        }
+
+        100%
+        {
+            display: block;
+            opacity: 1;
+        }
+    }
+</style>
