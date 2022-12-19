@@ -4,7 +4,7 @@ using BlazorSchool.Components.Web.Theme;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace BlazorSchool.Components.Web.UI.Collapse;
+namespace BlazorSchool.Components.Web.UI;
 public class BlazorCollapseToggleButton : TargetTokenize, IThemable
 {
     [CascadingParameter]

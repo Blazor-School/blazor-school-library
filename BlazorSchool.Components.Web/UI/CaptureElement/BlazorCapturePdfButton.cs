@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
 
-namespace BlazorSchool.Components.Web.UI.CaptureElement;
+namespace BlazorSchool.Components.Web.UI;
 public class BlazorCapturePdfButton : TargetTokenize, IThemable
 {
     [CascadingParameter]

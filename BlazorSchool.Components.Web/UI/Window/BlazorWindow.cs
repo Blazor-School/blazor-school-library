@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
 
-namespace BlazorSchool.Components.Web.UI.Window;
+namespace BlazorSchool.Components.Web.UI;
 public class BlazorWindow : TokenizeComponent, IThemable
 {
     [Parameter]

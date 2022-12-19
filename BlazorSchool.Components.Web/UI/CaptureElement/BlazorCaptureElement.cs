@@ -1,11 +1,10 @@
 ﻿using BlazorSchool.Components.Web.Core;
 using BlazorSchool.Components.Web.Core.Tokenize;
 using BlazorSchool.Components.Web.Theme;
-using BlazorSchool.Components.Web.UI.Window;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace BlazorSchool.Components.Web.UI.CaptureElement;
+namespace BlazorSchool.Components.Web.UI;
 public class BlazorCaptureElement : TokenizeComponent, IThemable
 {
     [Parameter]

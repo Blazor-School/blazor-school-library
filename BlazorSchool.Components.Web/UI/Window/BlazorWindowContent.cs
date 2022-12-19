@@ -3,7 +3,7 @@ using BlazorSchool.Components.Web.Theme;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace BlazorSchool.Components.Web.UI.Window;
+namespace BlazorSchool.Components.Web.UI;
 public class BlazorWindowContent : ComponentBase, IThemable
 {
     [CascadingParameter]
