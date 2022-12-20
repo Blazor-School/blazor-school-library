@@ -10,11 +10,20 @@ public class BlazorCollapseToggleButton : TargetTokenize, IThemable
     [CascadingParameter]
     public BlazorApplyTheme? CascadedBlazorApplyTheme { get; set; }
 
+    [CascadingParameter]
+    public BlazorCollapse? CascadedBlazorCollapse { get; set; }
+
     [Parameter(CaptureUnmatchedValues = true)]
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
     [Parameter]
     public EventCallback OnClick { get; set; } = EventCallback.Empty;
+
+    [Parameter]
+    public string CollapseShowingClass { get; set; } = "show";
+
+    [Parameter]
+    public string CollapseHidingClass { get; set; } = "hide";
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -23,9 +32,9 @@ public class BlazorCollapseToggleButton : TargetTokenize, IThemable
     {
         AttributeUtilities.ThrowsIfContains(AdditionalAttributes, "onclick");
 
-        if (string.IsNullOrEmpty(TargetToken))
+        if (string.IsNullOrEmpty(TargetToken) && CascadedBlazorCollapse is null)
         {
-            throw new InvalidOperationException($"{nameof(BlazorCollapseToggleButton)} must have a {nameof(TargetToken)}.");
+            throw new InvalidOperationException($"{nameof(BlazorCollapseToggleButton)} must have a {nameof(TargetToken)} or must be put inside a {nameof(BlazorCollapse)} component.");
         }
     }
 
@@ -41,8 +50,16 @@ public class BlazorCollapseToggleButton : TargetTokenize, IThemable
     // The toggle button does not allow to toggle the parent Blazor Collapse but can be inside Blazor Collapse.
     private async Task ToggleClickedAsync()
     {
-        var blazorCollapse = TokenizeResolver.Resolve<BlazorCollapse>(TargetToken);
-        blazorCollapse.ToggleVisibility();
+        if (!string.IsNullOrEmpty(TargetToken))
+        {
+            var blazorCollapse = TokenizeResolver.Resolve<BlazorCollapse>(TargetToken);
+            blazorCollapse.ToggleVisibility();
+        }
+        else
+        {
+            CascadedBlazorCollapse?.ToggleVisibility();
+        }
+
         await OnClick.InvokeAsync();
     }
 }

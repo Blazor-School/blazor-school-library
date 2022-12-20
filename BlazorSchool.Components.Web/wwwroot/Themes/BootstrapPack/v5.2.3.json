@@ -20,7 +20,9 @@
                 "BlazorWindowOpenButton": "btn btn-success",
                 "BlazorCapturePdfButton": "btn btn-primary",
                 "BlazorCollapse": "blazor-collapse",
-                "BlazorCollapseToggleButton": "btn btn-primary"
+                "BlazorCollapseToggleButton": "btn btn-primary",
+                "BlazorAccordionTitle": "blazor-accordion-title",
+                "BlazorAccordionBody": "blazor-accordion-body"
             }
         }
     ]

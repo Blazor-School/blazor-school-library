@@ -25,30 +25,37 @@ public class BlazorCollapse : TokenizeComponent, IThemable
     [Parameter]
     public bool InitialVisibility { get; set; }
 
-    private bool _currentVisibility;
+    internal bool CurrentVisibility { get; set; } = false;
 
     protected override void OnParametersSet() => AttributeUtilities.ThrowsIfContains(AdditionalAttributes, TokenAttributeKey);
 
     protected override void OnInitialized()
     {
         RegisterTokenize();
-        _currentVisibility = InitialVisibility;
+        CurrentVisibility = InitialVisibility;
     }
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         var attachedAttributes = AttributeUtilities.Normalized(AdditionalAttributes, CascadedBlazorApplyTheme, nameof(BlazorCollapse));
-        attachedAttributes = AttributeUtilities.AttachCssClass(attachedAttributes, _currentVisibility ? ShowClass : HideClass);
+        attachedAttributes = AttributeUtilities.AttachCssClass(attachedAttributes, CurrentVisibility ? ShowClass : HideClass);
+
         builder.OpenElement(0, HtmlTagUtilities.ToHtmlTag(nameof(BlazorCollapse)));
         builder.AddAttribute(1, TokenAttributeKey, Token);
         builder.AddMultipleAttributes(2, attachedAttributes);
-        builder.AddContent(3, ChildContent);
+
+        builder.OpenComponent<CascadingValue<BlazorCollapse>>(3);
+        builder.AddAttribute(4, "IsFixed", true);
+        builder.AddAttribute(5, "Value", this);
+        builder.AddAttribute(6, "ChildContent", ChildContent);
+        builder.CloseComponent();
+
         builder.CloseElement();
     }
 
     internal void ToggleVisibility()
     {
-        _currentVisibility = !_currentVisibility;
+        CurrentVisibility = !CurrentVisibility;
         StateHasChanged();
     }
 }

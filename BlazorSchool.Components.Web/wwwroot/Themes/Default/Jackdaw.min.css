@@ -1,1 +1,1 @@
-.grabbable{cursor:move}.blazor-collapse.hide{display:block;max-height:0;overflow:hidden;transition:max-height .25s linear}.blazor-collapse.show{display:block;overflow:hidden;max-height:100vh;transition:max-height .25s linear}
+.grabbable{cursor:move}.blazor-collapse.hide,.blazor-accordion-body.hide{display:block;max-height:0;overflow:hidden;transition:max-height .25s linear}.blazor-collapse.show,.blazor-accordion-body.show{display:block;overflow:hidden;max-height:100vh;transition:max-height .25s linear}
