@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
 namespace BlazorSchool.Components.Web.UI;
-public class BlazorCollapseToggleButton : TargetTokenize, IThemable
+public class BlazorCollapseToggleButton : TargetTokenize, IThemable, IDisposable
 {
     [CascadingParameter]
     public BlazorApplyTheme? CascadedBlazorApplyTheme { get; set; }
@@ -20,13 +20,16 @@ public class BlazorCollapseToggleButton : TargetTokenize, IThemable
     public EventCallback OnClick { get; set; } = EventCallback.Empty;
 
     [Parameter]
-    public string CollapseShowingClass { get; set; } = "show";
+    public string CollapseShowingClass { get; set; } = "blazor-collapse-toggle-show";
 
     [Parameter]
-    public string CollapseHidingClass { get; set; } = "hide";
+    public string CollapseHidingClass { get; set; } = "blazor-collapse-toggle-hide";
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    private BlazorCollapse? _currentBlazorCollapse;
+    private bool _subscribedBlazorCollapse = false;
 
     protected override void OnParametersSet()
     {
@@ -40,11 +43,44 @@ public class BlazorCollapseToggleButton : TargetTokenize, IThemable
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
+        var attachedAttributes = AttributeUtilities.Normalized(AdditionalAttributes, CascadedBlazorApplyTheme, nameof(BlazorCollapseToggleButton));
+        attachedAttributes = AttributeUtilities.AttachCssClass(attachedAttributes, GetCollapseVisibility() ? CollapseShowingClass : CollapseHidingClass);
+
         builder.OpenElement(0, "button");
-        builder.AddMultipleAttributes(1, AttributeUtilities.Normalized(AdditionalAttributes, CascadedBlazorApplyTheme, nameof(BlazorCollapseToggleButton)));
+        builder.AddMultipleAttributes(1, attachedAttributes);
         builder.AddAttribute(2, "onclick", ToggleClickedAsync);
         builder.AddContent(3, ChildContent);
         builder.CloseElement();
+    }
+
+    private bool GetCollapseVisibility()
+    {
+        bool fallbackValue = false;
+
+        if (CascadedBlazorCollapse is null)
+        {
+            try
+            {
+                _currentBlazorCollapse = TokenizeResolver.Resolve<BlazorCollapse>(TargetToken);
+                
+                if (_subscribedBlazorCollapse is false)
+                {
+                    _currentBlazorCollapse.OnComponentUpdated += OnBlazorCollapseUpdate;
+                    _subscribedBlazorCollapse = true;
+                }
+
+                return _currentBlazorCollapse?.CurrentVisibility ?? fallbackValue;
+            }
+            // When the BlazorCollapse hasn't initiated yet, we ignore
+            catch (InvalidOperationException)
+            {
+                return fallbackValue;
+            }
+        }
+        else
+        {
+            return CascadedBlazorCollapse?.CurrentVisibility ?? fallbackValue;
+        }
     }
 
     // The toggle button does not allow to toggle the parent Blazor Collapse but can be inside Blazor Collapse.
@@ -52,8 +88,7 @@ public class BlazorCollapseToggleButton : TargetTokenize, IThemable
     {
         if (!string.IsNullOrEmpty(TargetToken))
         {
-            var blazorCollapse = TokenizeResolver.Resolve<BlazorCollapse>(TargetToken);
-            blazorCollapse.ToggleVisibility();
+            _currentBlazorCollapse?.ToggleVisibility();
         }
         else
         {
@@ -61,5 +96,15 @@ public class BlazorCollapseToggleButton : TargetTokenize, IThemable
         }
 
         await OnClick.InvokeAsync();
+    }
+
+    private void OnBlazorCollapseUpdate(object? sender, EventArgs args) => StateHasChanged();
+    
+    public void Dispose()
+    {
+        if(_subscribedBlazorCollapse && _currentBlazorCollapse is not null)
+        {
+            _currentBlazorCollapse.OnComponentUpdated -= OnBlazorCollapseUpdate;
+        }
     }
 }

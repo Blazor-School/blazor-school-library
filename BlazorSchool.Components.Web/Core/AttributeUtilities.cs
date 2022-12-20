@@ -39,7 +39,7 @@ internal static partial class AttributeUtilities
             string joinedCssClasses = string.Join(" ", originalCssClasses, cssClasses);
             var splitedCssClasses = joinedCssClasses.Split(" ").Distinct();
             string finalCssClasses = string.Join(" ", splitedCssClasses);
-            result["class"]= finalCssClasses;
+            result["class"] = finalCssClasses;
         }
 
         return result;

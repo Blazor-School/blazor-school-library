@@ -14,10 +14,10 @@ public class BlazorCollapse : TokenizeComponent, IThemable
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
     [Parameter]
-    public string ShowClass { get; set; } = "show";
+    public string ShowClass { get; set; } = "blazor-collapse-show";
 
     [Parameter]
-    public string HideClass { get; set; } = "hide";
+    public string HideClass { get; set; } = "blazor-collapse-hide";
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

@@ -3,7 +3,7 @@
     cursor: move;
 }
 
-.blazor-collapse.hide, .blazor-accordion-body.hide
+.blazor-collapse.blazor-collapse-hide, .blazor-accordion-body.hide
 {
     display: block;
     max-height: 0px;
@@ -11,7 +11,7 @@
     transition: max-height 0.25s linear;
 }
 
-.blazor-collapse.show, .blazor-accordion-body.show
+.blazor-collapse.blazor-collapse-show, .blazor-accordion-body.show
 {
     display: block;
     overflow: hidden;

@@ -12,11 +12,9 @@ public class BlazorThemeSwitcher : TargetTokenize, IDisposable
     [CascadingParameter]
     private BlazorApplyTheme? CascadedBlazorApplyTheme { get; set; }
 
-    [Inject]
-    private TokenizeResolver TokenizeResolver { get; set; } = default!;
-
     private BlazorThemePack CurrentThemePack => GetCurrentThemePack();
     private BlazorApplyTheme? _currentBlazorApplyTheme;
+    private bool _subscribedBlazorApplyTheme = false;
 
     protected override void BuildRenderTree(RenderTreeBuilder builder) => builder.AddContent(0, ChildContent?.Invoke(CurrentThemePack));
 
@@ -39,8 +37,14 @@ public class BlazorThemeSwitcher : TargetTokenize, IDisposable
 
         if (CascadedBlazorApplyTheme is null)
         {
-            _currentBlazorApplyTheme = TokenizeResolver.Resolve<BlazorApplyTheme>(TargetToken);
-            _currentBlazorApplyTheme.OnComponentUpdated += OnBlazorApplyThemeUpdate;
+            try
+            {
+                _currentBlazorApplyTheme = TokenizeResolver.Resolve<BlazorApplyTheme>(TargetToken);
+                _currentBlazorApplyTheme.OnComponentUpdated += OnBlazorApplyThemeUpdate;
+                _subscribedBlazorApplyTheme = true;
+            }
+            // When the BlazorApplyTheme hasn't initiated yet, we ignore
+            catch (InvalidOperationException) { }
         }
 
         return new()
@@ -56,7 +60,7 @@ public class BlazorThemeSwitcher : TargetTokenize, IDisposable
 
     public void Dispose()
     {
-        if (CascadedBlazorApplyTheme is null)
+        if (_subscribedBlazorApplyTheme && _currentBlazorApplyTheme is not null)
         {
             _currentBlazorApplyTheme.OnComponentUpdated -= OnBlazorApplyThemeUpdate;
         }

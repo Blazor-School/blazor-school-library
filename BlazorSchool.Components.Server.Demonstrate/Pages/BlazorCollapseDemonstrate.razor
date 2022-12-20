@@ -62,7 +62,7 @@
 </div>
 
 <style>
-    .show, .show-this
+    .blazor-collapse-show, .show-this
     {
         display: block;
         overflow: hidden;
@@ -70,7 +70,7 @@
         transition: max-height 0.25s linear;
     }
 
-    .hide, .hide-this
+    .blazor-collapse-hide, .hide-this
     {
         display: block;
         max-height: 0px;
@@ -78,13 +78,13 @@
         transition: max-height 0.25s linear;
     }
 
-    .my-collapse.show
+    .my-collapse.blazor-collapse-show
     {
         display: unset;
         animation: myAnimation 0.5s ease-out;
     }
 
-    .my-collapse.hide
+    .my-collapse.blazor-collapse-hide
     {
         display: none;
     }
