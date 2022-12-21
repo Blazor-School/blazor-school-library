@@ -20,10 +20,10 @@ public class BlazorAccordionBody : TokenizeComponent, IThemable
     public bool InitialVisibility { get; set; }
 
     [Parameter]
-    public string ShowClass { get; set; } = "show";
+    public string ShowClass { get; set; } = "blazor-accordion-body-show";
 
     [Parameter]
-    public string HideClass { get; set; } = "hide";
+    public string HideClass { get; set; } = "blazor-accordion-body-hide";
 
     protected override void OnParametersSet()
     {
@@ -48,7 +48,6 @@ public class BlazorAccordionBody : TokenizeComponent, IThemable
     private void BuildBlazorCollapse(RenderTreeBuilder builder)
     {
         builder.OpenComponent<BlazorCollapse>(0);
-        var test = AttributeUtilities.Normalized(AdditionalAttributes, CascadedBlazorApplyTheme, nameof(BlazorAccordionBody));
         builder.AddAttribute(1, nameof(BlazorCollapse.AdditionalAttributes), AttributeUtilities.Normalized(AdditionalAttributes, CascadedBlazorApplyTheme, nameof(BlazorAccordionBody)));
         builder.AddAttribute(2, nameof(BlazorCollapse.Token), Token);
         builder.AddAttribute(3, nameof(BlazorCollapse.HideClass), HideClass);

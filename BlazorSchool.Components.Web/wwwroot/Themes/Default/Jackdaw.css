@@ -3,7 +3,22 @@
     cursor: move;
 }
 
-.blazor-collapse.blazor-collapse-hide, .blazor-accordion-body.hide
+.blazor-collapse.blazor-collapse-hide
+{
+    display: flex;
+    line-height: 0;
+    opacity: 0;
+    transition: .2s ease-out;
+}
+
+.blazor-collapse.blazor-collapse-show
+{
+    display: flex;
+    justify-content: space-between;
+    transition: .2s ease-out;
+}
+
+.blazor-accordion-body.blazor-accordion-body-hide
 {
     display: flex;
     line-height: 0;
@@ -12,7 +27,7 @@
     transition: .2s ease-out;
 }
 
-.blazor-collapse.blazor-collapse-show, .blazor-accordion-body.show
+.blazor-accordion-body.blazor-accordion-body-show
 {
     display: flex;
     justify-content: space-between;

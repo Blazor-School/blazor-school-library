@@ -33,6 +33,7 @@ public class BlazorCollapse : TokenizeComponent, IThemable
     {
         RegisterTokenize();
         CurrentVisibility = InitialVisibility;
+        NotifyComponentUpdated();
     }
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -57,5 +58,6 @@ public class BlazorCollapse : TokenizeComponent, IThemable
     {
         CurrentVisibility = !CurrentVisibility;
         StateHasChanged();
+        NotifyComponentUpdated();
     }
 }

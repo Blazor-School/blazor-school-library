@@ -62,7 +62,7 @@ public class BlazorCollapseToggleButton : TargetTokenize, IThemable, IDisposable
             try
             {
                 _currentBlazorCollapse = TokenizeResolver.Resolve<BlazorCollapse>(TargetToken);
-                
+
                 if (_subscribedBlazorCollapse is false)
                 {
                     _currentBlazorCollapse.OnComponentUpdated += OnBlazorCollapseUpdate;
@@ -88,6 +88,14 @@ public class BlazorCollapseToggleButton : TargetTokenize, IThemable, IDisposable
     {
         if (!string.IsNullOrEmpty(TargetToken))
         {
+            _currentBlazorCollapse ??= TokenizeResolver.Resolve<BlazorCollapse>(TargetToken);
+
+            if (_subscribedBlazorCollapse is false)
+            {
+                _currentBlazorCollapse.OnComponentUpdated += OnBlazorCollapseUpdate;
+                _subscribedBlazorCollapse = true;
+            }
+
             _currentBlazorCollapse?.ToggleVisibility();
         }
         else
@@ -99,10 +107,10 @@ public class BlazorCollapseToggleButton : TargetTokenize, IThemable, IDisposable
     }
 
     private void OnBlazorCollapseUpdate(object? sender, EventArgs args) => StateHasChanged();
-    
+
     public void Dispose()
     {
-        if(_subscribedBlazorCollapse && _currentBlazorCollapse is not null)
+        if (_subscribedBlazorCollapse && _currentBlazorCollapse is not null)
         {
             _currentBlazorCollapse.OnComponentUpdated -= OnBlazorCollapseUpdate;
         }

@@ -42,7 +42,7 @@ public class BlazorAccordionTitle : TargetTokenize, IThemable
     {
         builder.OpenElement(0, HtmlTagUtilities.ToHtmlTag(nameof(BlazorAccordionTitle)));
         RenderFragment blazorCollapseToggleButton = BuildBlazorCollapseButton;
-        builder.AddContent(2, blazorCollapseToggleButton);
+        builder.AddContent(1, blazorCollapseToggleButton);
         builder.CloseElement();
     }
 
