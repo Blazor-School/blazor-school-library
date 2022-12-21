@@ -17,6 +17,12 @@ public class BlazorAccordionTitle : TargetTokenize, IThemable
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
+    public string AccordionBodyShowingClass { get; set; } = "blazor-accordion-title-show";
+
+    [Parameter]
+    public string AccordionBodyHidingClass { get; set; } = "blazor-accordion-title-hide";
+
+    [Parameter]
     public EventCallback OnClick { get; set; } = EventCallback.Empty;
 
     protected override void OnParametersSet()
@@ -45,7 +51,9 @@ public class BlazorAccordionTitle : TargetTokenize, IThemable
         builder.OpenComponent<BlazorCollapseToggleButton>(0);
         builder.AddAttribute(1, nameof(BlazorCollapseToggleButton.AdditionalAttributes), AttributeUtilities.Normalized(AdditionalAttributes, CascadedBlazorApplyTheme, nameof(BlazorAccordionTitle)));
         builder.AddAttribute(2, nameof(BlazorCollapseToggleButton.TargetToken), TargetToken);
-        builder.AddAttribute(3, nameof(BlazorCollapseToggleButton.ChildContent), ChildContent);
+        builder.AddAttribute(3, nameof(BlazorCollapseToggleButton.CollapseShowingClass), AccordionBodyShowingClass);
+        builder.AddAttribute(4, nameof(BlazorCollapseToggleButton.CollapseHidingClass), AccordionBodyHidingClass);
+        builder.AddAttribute(5, nameof(BlazorCollapseToggleButton.ChildContent), ChildContent);
         builder.CloseComponent();
     }
 }

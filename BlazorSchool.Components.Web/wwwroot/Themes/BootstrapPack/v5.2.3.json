@@ -21,6 +21,7 @@
                 "BlazorCapturePdfButton": "btn btn-primary",
                 "BlazorCollapse": "blazor-collapse",
                 "BlazorCollapseToggleButton": "btn btn-primary",
+                "BlazorAccordion": "blazor-accordion",
                 "BlazorAccordionTitle": "blazor-accordion-title",
                 "BlazorAccordionBody": "blazor-accordion-body"
             }
