@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <Description>A Blazor Component Library for Blazor Server and Blazor WebAssembly.</Description>
     <Copyright>Blazor School</Copyright>
     <Company>Blazor School</Company>
@@ -16,7 +16,7 @@
     <PackageIcon>Properties\logo.png</PackageIcon>
     <PackageTags>blazor blazor-server blazor-wasm</PackageTags>
     <PackageReleaseNotes>Official release.</PackageReleaseNotes>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <AssemblyVersion>1.1.0</AssemblyVersion>
     <PackageLicenseFile>LICENSE.MD</PackageLicenseFile>
     <RepositoryUrl>https://github.com/Blazor-School/blazor-school-library</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
