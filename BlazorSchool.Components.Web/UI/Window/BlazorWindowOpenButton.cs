@@ -4,8 +4,8 @@ using BlazorSchool.Components.Web.Theme;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace BlazorSchool.Components.Web.UI.Window;
-public class BlazorWindowOpenButton : ComponentBase, IThemable
+namespace BlazorSchool.Components.Web.UI;
+public class BlazorWindowOpenButton : TargetTokenize, IThemable
 {
     [CascadingParameter]
     private BlazorWindow? CascadedBlazorWindow { get; set; }
@@ -16,17 +16,11 @@ public class BlazorWindowOpenButton : ComponentBase, IThemable
     [Parameter]
     public EventCallback? OnClick { get; set; }
 
-    [Parameter]
-    public string TargetToken { get; set; } = "";
-
     [Parameter(CaptureUnmatchedValues = true)]
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
     [CascadingParameter]
     public BlazorApplyTheme? CascadedBlazorApplyTheme { get; set; }
-
-    [Inject]
-    private TokenizeResolver TokenizeResolver { get; set; } = default!;
 
     protected override void OnParametersSet()
     {

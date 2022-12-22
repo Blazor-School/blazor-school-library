@@ -14,11 +14,16 @@
             ],
             "Components":
             {
-                "BlazorWindow": "border border-3 border-primary",
+                "BlazorWindow": "border border-3 border-primary d-flex flex-column",
                 "BlazorWindowTitle": "grabbable bg-primary text-white d-flex flex-row",
                 "BlazorWindowCloseButton": "btn btn-danger",
                 "BlazorWindowOpenButton": "btn btn-success",
-                "BlazorCapturePdfButton": "btn btn-primary"
+                "BlazorCapturePdfButton": "btn btn-primary",
+                "BlazorCollapse": "blazor-collapse",
+                "BlazorCollapseToggleButton": "btn btn-primary",
+                "BlazorAccordion": "blazor-accordion",
+                "BlazorAccordionTitle": "blazor-accordion-title",
+                "BlazorAccordionBody": "blazor-accordion-body"
             }
         }
     ]

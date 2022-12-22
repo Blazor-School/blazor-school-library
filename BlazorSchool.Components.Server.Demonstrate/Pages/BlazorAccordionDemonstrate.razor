@@ -1,0 +1,33 @@
+﻿@page "/blazor-accordion-demonstrate"
+
+<div class="border border-3 border-primary p-5 m-2">
+    <p>Blazor Accordion with <code>Jackdaw</code>.</p>
+    <BlazorApplyTheme ThemePackPath="@DefaultTheme.Bootstrap" InitialTheme="Jackdaw">
+        <BlazorAccordion>
+            <BlazorAccordionTitle TargetToken="blazor-accordion-1">Accordion Item #1</BlazorAccordionTitle>
+            <BlazorAccordionBody Token="blazor-accordion-1">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </BlazorAccordionBody>
+            <BlazorAccordionTitle TargetToken="blazor-accordion-2">Accordion Item #2</BlazorAccordionTitle>
+            <BlazorAccordionBody InitialVisibility="true" Token="blazor-accordion-2">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </BlazorAccordionBody>
+        </BlazorAccordion>
+        <p class="mt-2">Blazor Accordion is built on top of Blazor Collapse so you can use the <code>BlazorCollapseToggleButton</code> to toggle the body as well:</p>
+        <BlazorCollapseToggleButton class="btn btn-primary" TargetToken="blazor-accordion-1">Toggle Accordion Item #1</BlazorCollapseToggleButton>
+    </BlazorApplyTheme>
+</div>
+
+<div class="border border-3 border-primary p-5 m-2">
+    <p>Blazor Accordion without <code>Jackdaw</code>. To make it fully functional, you need to define the CSS yourself.</p>
+    <BlazorAccordion class="my-accordion">
+        <BlazorAccordionTitle class="my-accordion-title" AccordionBodyHidingClass="my-accordion-title-hiding" AccordionBodyShowingClass="my-accordion-title-showing" TargetToken="blazor-accordion-without-jackdaw-1">Accordion Item #1</BlazorAccordionTitle>
+        <BlazorAccordionBody class="my-accordion-body" ShowClass="my-accordion-body-show" HideClass="my-accordion-body-hide" Token="blazor-accordion-without-jackdaw-1">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </BlazorAccordionBody>
+        <BlazorAccordionTitle AccordionBodyHidingClass="my-accordion-title-hiding" AccordionBodyShowingClass="my-accordion-title-showing" TargetToken="blazor-accordion-without-jackdaw-2">Accordion Item #2</BlazorAccordionTitle>
+        <BlazorAccordionBody InitialVisibility="true" ShowClass="my-accordion-body-show" HideClass="my-accordion-body-hide" Token="blazor-accordion-without-jackdaw-2">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </BlazorAccordionBody>
+    </BlazorAccordion>
+</div>

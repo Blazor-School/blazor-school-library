@@ -1,5 +1,4 @@
-﻿@page "/blazor-window-desmonstrate"
-@using BlazorSchool.Components.Web.UI.Window
+﻿@page "/blazor-window-demonstrate"
 
 <style>
     .grabbable
@@ -19,7 +18,7 @@
 <BlazorWindowOpenButton class="btn btn-success" TargetToken="window-token">Open</BlazorWindowOpenButton>
 
 <div>Button outside window</div>
-<BlazorWindow InitialVisibility="false" class="border border-3 border-primary" Token="window-token-2">
+<BlazorWindow InitialVisibility="false" class="border border-3 border-primary d-flex flex-column" Token="window-token-2">
     <BlazorWindowTitle class="grabbable bg-primary text-white">Drag me</BlazorWindowTitle>
     <BlazorWindowContent>Window content</BlazorWindowContent>
 </BlazorWindow>

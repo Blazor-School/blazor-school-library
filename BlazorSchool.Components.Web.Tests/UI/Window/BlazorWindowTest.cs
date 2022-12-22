@@ -1,4 +1,4 @@
-﻿using BlazorSchool.Components.Web.UI.Window;
+﻿using BlazorSchool.Components.Web.UI;
 using Microsoft.AspNetCore.Components;
 
 namespace BlazorSchool.Components.Web.Tests.UI.Window;

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
 
-namespace BlazorSchool.Components.Web.UI.Window;
+namespace BlazorSchool.Components.Web.UI;
 public class BlazorWindowTitle : TokenizeComponent, IThemable
 {
     [CascadingParameter]
@@ -44,7 +44,7 @@ public class BlazorWindowTitle : TokenizeComponent, IThemable
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenElement(0, "div");
+        builder.OpenElement(0, HtmlTagUtilities.ToHtmlTag(nameof(BlazorWindowTitle)));
         builder.AddMultipleAttributes(1, AttributeUtilities.Normalized(AdditionalAttributes, CascadedBlazorApplyTheme, nameof(BlazorWindowTitle)));
         builder.AddAttribute(2, TokenAttributeKey, Token);
         builder.AddContent(3, ChildContent);

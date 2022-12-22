@@ -16,7 +16,6 @@ internal class TokenizeResolver
     {
         if (_tokenizeComponentCollection.ContainsKey(token))
         {
-            _tokenizeComponentCollection.Remove(token);
             throw new InvalidOperationException($"The token {token} is duplicated. Check if any token is duplicated and reload the page.");
         }
 
