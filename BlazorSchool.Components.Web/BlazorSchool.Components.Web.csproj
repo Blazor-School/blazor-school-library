@@ -15,7 +15,12 @@
     <IncludeSymbols>False</IncludeSymbols>
     <PackageIcon>Properties\logo.png</PackageIcon>
     <PackageTags>blazor blazor-server blazor-wasm</PackageTags>
-    <PackageReleaseNotes>Official release.</PackageReleaseNotes>
+    <PackageReleaseNotes>    Change BlazorCapturePdfButton.OnPopupBlocked to BlazorCapturePdfButton.OnPopupBlock
+    Change event name of BlazorCapturePdfButton from OnClicked to OnClick to normalize the components.
+    Change BlazorCapturePdfButton.CapturingToken to BlazorCapturePdfButton.TargetToken.
+    Change BlazorWindowCloseAction, BlazorWindowOpenAction to BlazorWindowOpenButton, BlazorWindowCloseButton.
+    Add BlazorApplyTheme, BlazorCollapse, BlazorAccordion component.
+    Move all namespace under BlazorSchool.Components.Web.UI</PackageReleaseNotes>
     <AssemblyVersion>1.1.0</AssemblyVersion>
     <PackageLicenseFile>LICENSE.MD</PackageLicenseFile>
     <RepositoryUrl>https://github.com/Blazor-School/blazor-school-library</RepositoryUrl>
